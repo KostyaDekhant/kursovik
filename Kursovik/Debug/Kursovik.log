@@ -1,0 +1,4 @@
+﻿  StartForm.cpp
+C:\Users\Podor\source\repos\Kursovik\Kursovik\StartForm.cpp(7,33): warning C4829: Возможно, неправильные параметры функции main. Рекомендуемый вариант - "int main(Platform::Array<Platform::String^>^ argv)"
+  StartForm.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
+  Kursovik.vcxproj -> C:\Users\Podor\source\repos\Kursovik\Debug\Kursovik.exe
