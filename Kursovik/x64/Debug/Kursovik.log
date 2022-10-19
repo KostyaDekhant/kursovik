@@ -1,0 +1,4 @@
+﻿  StartForm.cpp
+C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\StartForm.cpp(7,33): warning C4829: Возможно, неправильные параметры функции main. Рекомендуемый вариант - "int main(Platform::Array<Platform::String^>^ argv)"
+C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\StartForm.cpp(18,20): error C2337: DllImportAttribute: атрибут не найден
+C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\StartForm.cpp(20,20): error C2337: DllImportAttribute: атрибут не найден
