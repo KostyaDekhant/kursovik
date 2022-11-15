@@ -127,7 +127,7 @@
   <data name="maximize_bttn.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAQUAAADhCAYAAADBNKCxAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EwAACxMBAJqcGAAACYtJREFUeF7t0zEOJDkSxdC5T9//YnOBHm8NiRUIo3KzANJ4zjfCEKh//v79myT/
+        DAAACwwBP0AiyAAACYtJREFUeF7t0zEOJDkSxdC5T9//YnOBHm8NiRUIo3KzANJ4zjfCEKh//v79myT/
         g2MSLxyTeOGYxAvHJF44JvHCMYkXjkm8cEzihWMSLxyTeOGYxAvHJF44JvHCMYkXjkm8cEzihWMSLxyT
         eOGYxAvHJF44JvHCMYkXjkm8cEzihWMSLxyTeOGYxAvHJF44JvHCMYkXjkm8cEzihWMSLxyTeOGYxAvH
         JF44JvHCMYkXjkm8cEzihWMSLxyTeOGYxAvHJF44JvHCMYkXjkm8cEzihaPVnz9//i/+/fffv/kdZwd2
@@ -174,7 +174,7 @@
   <data name="minimize_bttn.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAQUAAADhCAYAAADBNKCxAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EwAACxMBAJqcGAAAAzxJREFUeF7t0iGSGDEAA8H8/7X3gwsLcA3euKwGTYZKf35/fwH+yQjsygjsygjs
+        DAAACwwBP0AiyAAAAzxJREFUeF7t0iGSGDEAA8H8/7X3gwsLcA3euKwGTYZKf35/fwH+yQjsygjsygjs
         ygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjs
         ygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjs
         ygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjsygjs
@@ -194,7 +194,7 @@
   <data name="exit_bttn.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAQUAAADhCAYAAADBNKCxAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EwAACxMBAJqcGAAACjtJREFUeF7t3Eti20YUBdFkvcmCkqzSK4iC57BtSi5R+KPRdQdn8jQBwcsa6re3
+        DAAACwwBP0AiyAAACjtJREFUeF7t3Eti20YUBdFkvcmCkqzSK4iC57BtSi5R+KPRdQdn8jQBwcsa6re3
         t7eIiB/wGBFeeIwILzxGhBceI8ILjxHhhceI8MJjRHjhMSK88BgRXniMCC88RoQXHiPCC48R4YXHiPDC
         Y0R44TEivPAYEV54jAgvPEaEFx4jwguPEeGFx4jwwmNEeOExIrzwGBFeeIwILzxGhBceI8ILjxHhhceI
         8MJjRHjhMSK88BgRXniMCC88RoQXHiPCC48R4YXHiPDCY0R44TEivPAYEV54jAgvPEaEFx5tvn37dpQ/

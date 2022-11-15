@@ -115,14 +115,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AddData.cpp" />
+    <ClCompile Include="Directions.cpp" />
+    <ClCompile Include="Faculty.cpp" />
     <ClCompile Include="Function.cpp" />
+    <ClCompile Include="Groups.cpp" />
     <ClCompile Include="StartForm.cpp" />
+    <ClCompile Include="Students.cpp" />
+    <ClCompile Include="YearsOfUni.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddData.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="Directions.h" />
+    <ClInclude Include="Faculty.h" />
     <ClInclude Include="Function.h" />
+    <ClInclude Include="Groups.h" />
     <ClInclude Include="StartForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Students.h" />
+    <ClInclude Include="YearsOfUni.h" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -132,6 +146,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AddData.resx">
+      <DependentUpon>AddData.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StartForm.resx">
       <DependentUpon>StartForm.h</DependentUpon>
     </EmbeddedResource>

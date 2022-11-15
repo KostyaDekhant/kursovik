@@ -1,4 +1,6 @@
-﻿  StartForm.cpp
-C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\StartForm.cpp(7,33): warning C4829: Возможно, неправильные параметры функции main. Рекомендуемый вариант - "int main(Platform::Array<Platform::String^>^ argv)"
-C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\StartForm.cpp(18,20): error C2337: DllImportAttribute: атрибут не найден
-C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\StartForm.cpp(20,20): error C2337: DllImportAttribute: атрибут не найден
+﻿  AddData.cpp
+  StartForm.cpp
+C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\StartForm.cpp(9,33): warning C4829: Возможно, неправильные параметры функции main. Рекомендуемый вариант - "int main(Platform::Array<Platform::String^>^ argv)"
+  Создание кода...
+  AddData.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
+  Kursovik.vcxproj -> C:\Users\Podor\Documents\GitHub\kursovik\x64\Debug\Kursovik.exe
