@@ -113,6 +113,7 @@ namespace Kursovik {
 			this->comboBox1->Name = L"comboBox1";
 			this->comboBox1->Size = System::Drawing::Size(121, 21);
 			this->comboBox1->TabIndex = 2;
+			this->comboBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &AddData::comboBox1_SelectedIndexChanged);
 			// 
 			// comboBox2
 			// 
@@ -170,10 +171,11 @@ namespace Kursovik {
 	private: System::Void AddData_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e);
 	private: System::Void AddData_Load(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void SelectGrid(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e);
-	private: System::Void CheckComboBox1();
-	private: System::Void CheckComboBox2();
-	private: System::Void CheckComboBox3();
-	private: System::Void CheckComboBox4();
+	private: System::Void CheckComboBox1(int index);
+	private: System::Void CheckComboBox2(int index2);
+	private: System::Void CheckComboBox3(int index3);
+	private: System::Void CheckComboBox4(int index4);
 	private: System::Void InfoAboutStusents();
+	private: System::Void comboBox1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 };
 }

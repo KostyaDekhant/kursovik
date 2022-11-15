@@ -22,8 +22,7 @@ System::Void Kursovik::AddData::AddData_FormClosing(System::Object^ sender, Syst
 
 System::Void Kursovik::AddData::AddData_Load(System::Object^ sender, System::EventArgs^ e)
 {
-	CheckComboBox1();
-	
+	CheckComboBox1(0);
 }
 
 
@@ -33,25 +32,28 @@ System::Void Kursovik::AddData::SelectGrid(System::Object^ sender, System::Windo
 	
 }
 
-System::Void Kursovik::AddData::CheckComboBox1()
+System::Void Kursovik::AddData::CheckComboBox1(int index)
 {
 	string ftxt = "Faculty.txt";
 	ifstream faculty(path+ftxt);
 	if (faculty)
 	{
-		int count_facult = 0;
-		string* faculties = new string[10];
-		while (getline(faculty, faculties[count_facult]))
+		if (comboBox1->Text == "")
 		{
-			count_facult++;
+			int count_facult = 0;
+			string* faculties = new string[10];
+			while (getline(faculty, faculties[count_facult]))
+			{
+				count_facult++;
+			}
+			faculty.close();
+			for (int i = 0; i < count_facult; i++)
+			{
+				comboBox1->Items->Add(ConvertToString(faculties[i]));
+			}
 		}
-		faculty.close();
-		for (int i = 0; i < count_facult; i++)
-		{
-			comboBox1->Items->Add(ConvertToString(faculties[i]));
-		}
-		comboBox1->SelectedIndex = 0;
-		CheckComboBox2();
+		comboBox1->SelectedIndex = index;
+		CheckComboBox2(5);
 	}
 	else
 	{
@@ -59,26 +61,29 @@ System::Void Kursovik::AddData::CheckComboBox1()
 	}
 }
 
-System::Void Kursovik::AddData::CheckComboBox2()
+System::Void Kursovik::AddData::CheckComboBox2(int index)
 {
 	string dtxt = "Direction.txt";
 	string repos = ConvertTostring(comboBox1->Text) + "\\";
 	ifstream dir(path + repos + dtxt);
 	if (dir)
 	{
-		int count_dir = 0;
-		string* direction = new string[10];
-		while (getline(dir, direction[count_dir]))
+		if (comboBox2->Text == "")
 		{
-			count_dir++;
+			int count_dir = 0;
+			string* direction = new string[10];
+			while (getline(dir, direction[count_dir]))
+			{
+				count_dir++;
+			}
+			dir.close();
+			for (int i = 0; i < count_dir; i++)
+			{
+				comboBox2->Items->Add(ConvertToString(direction[i]));
+			}
 		}
-		dir.close();
-		for (int i = 0; i < count_dir; i++)
-		{
-			comboBox2->Items->Add(ConvertToString(direction[i]));
-		}
-		comboBox2->SelectedIndex = count_dir -1;
-		CheckComboBox3();
+		comboBox2->SelectedIndex = index;
+		CheckComboBox3(1);
 	}
 	else
 	{
@@ -86,26 +91,29 @@ System::Void Kursovik::AddData::CheckComboBox2()
 	}
 }
 
-System::Void Kursovik::AddData::CheckComboBox3()
+System::Void Kursovik::AddData::CheckComboBox3(int index)
 {
 	string ytxt = "YearsOfUni.txt";
 	string repos = ConvertTostring(comboBox1->Text) + "\\" + ConvertTostring(comboBox2->Text) + "\\";
 	ifstream year(path + repos + ytxt);
 	if (year)
 	{
-		int count_year = 0;
-		string* years = new string[10];
-		while (getline(year, years[count_year]))
+		if (comboBox3->Text == "")
 		{
-			count_year++;
+			int count_year = 0;
+			string* years = new string[10];
+			while (getline(year, years[count_year]))
+			{
+				count_year++;
+			}
+			year.close();
+			for (int i = 0; i < count_year; i++)
+			{
+				comboBox3->Items->Add(ConvertToString(years[i]));
+			}
 		}
-		year.close();
-		for (int i = 0; i < count_year; i++)
-		{
-			comboBox3->Items->Add(ConvertToString(years[i]));
-		}
-		comboBox3->SelectedIndex = 1;
-		CheckComboBox4();
+		comboBox3->SelectedIndex = index;
+		CheckComboBox4(0);
 	}
 	else
 	{
@@ -113,7 +121,7 @@ System::Void Kursovik::AddData::CheckComboBox3()
 	}
 }
 
-System::Void Kursovik::AddData::CheckComboBox4()
+System::Void Kursovik::AddData::CheckComboBox4(int index)
 {
 	string gtxt = "Groups.txt";
 	string repos = ConvertTostring(comboBox1->Text) + "\\" + ConvertTostring(comboBox2->Text) + "\\" 
@@ -121,18 +129,21 @@ System::Void Kursovik::AddData::CheckComboBox4()
 	ifstream group(path + repos + gtxt);
 	if (group)
 	{
-		int count_gr = 0;
-		string* groups = new string[10];
-		while (getline(group, groups[count_gr]))
+		if (comboBox4->Text == "")
 		{
-			count_gr++;
+			int count_gr = 0;
+			string* groups = new string[10];
+			while (getline(group, groups[count_gr]))
+			{
+				count_gr++;
+			}
+			group.close();
+			for (int i = 0; i < count_gr; i++)
+			{
+				comboBox4->Items->Add(ConvertToString(groups[i]));
+			}
 		}
-		group.close();
-		for (int i = 0; i < count_gr; i++)
-		{
-			comboBox4->Items->Add(ConvertToString(groups[i]));
-		}
-		comboBox4->SelectedIndex = 0;
+		comboBox4->SelectedIndex = index;
 		InfoAboutStusents();
 	}
 	else
@@ -144,4 +155,9 @@ System::Void Kursovik::AddData::CheckComboBox4()
 System::Void Kursovik::AddData::InfoAboutStusents()
 {
 	
+}
+
+System::Void Kursovik::AddData::comboBox1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e)
+{
+	CheckComboBox1(comboBox1->SelectedIndex);
 }
