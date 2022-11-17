@@ -261,7 +261,6 @@ namespace Kursovik {
 			this->Controls->Add(this->make_inq);
 			this->Controls->Add(this->add_data);
 			this->Controls->Add(this->menuStrip1);
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			this->MainMenuStrip = this->menuStrip1;
 			this->MaximumSize = System::Drawing::Size(1920, 1050);
 			this->Name = L"StartForm";

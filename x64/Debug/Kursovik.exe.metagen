@@ -18,6 +18,11 @@ Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c5619
 Class Kursovik.AddData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.Windows.Forms.ComboBox comboBox1 : Public
+    System.Windows.Forms.ComboBox comboBox2 : Public
+    System.Windows.Forms.ComboBox comboBox3 : Public
+    System.Windows.Forms.ComboBox comboBox4 : Public
 Class Kursovik.StartForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
