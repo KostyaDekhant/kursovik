@@ -1,6 +1,12 @@
 #include "Faculty.h"
 
-Facult::Facult()
+Faculty::Faculty()
 {
 
+}
+
+void Faculty::setVector(class Directions &direct)
+{
+
+	this->dir.push_back(&direct);
 }

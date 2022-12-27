@@ -54,6 +54,7 @@ namespace Kursovik {
 	private: System::Windows::Forms::Button^ make_inq;
 	private: System::Windows::Forms::Button^ report;
 
+
 	private: System::ComponentModel::IContainer^ components;
 
 	private:

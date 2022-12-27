@@ -38,7 +38,11 @@ namespace Kursovik {
 	protected:
 	private: System::Windows::Forms::ToolStripMenuItem^ файлToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ вернутьсяToolStripMenuItem;
-	private: System::Windows::Forms::DataGridView^ dataGridView1;
+	public: System::Windows::Forms::DataGridView^ dataGridView1;
+	private:
+	public: int* Row_del_index = new int[1000];
+	public:	int* DeletedRows = new int[1000];
+	private: static bool flag_for_dash = false;
 	public: System::Windows::Forms::ComboBox^ comboBox1;
 	public: System::Windows::Forms::ComboBox^ comboBox2;
 	public: System::Windows::Forms::ComboBox^ comboBox3;
@@ -50,9 +54,20 @@ namespace Kursovik {
 	private: System::Windows::Forms::Button^ add_stud;
 
 	private: System::Windows::Forms::GroupBox^ groupBox1;
-	private: System::Windows::Forms::GroupBox^ groupBox2;
+
 	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox2;
 	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::GroupBox^ groupBox3;
+	private: System::Windows::Forms::CheckBox^ checkBox1;
+	private: System::Windows::Forms::Label^ label3;
+	private: System::Windows::Forms::Label^ label4;
+	private: System::Windows::Forms::Button^ save_data_bttn;
+	private: System::Windows::Forms::Button^ del_bttn;
+	private: System::Windows::Forms::Label^ label5;
+	private: System::Windows::Forms::TextBox^ textBox1;
+
+
+
 
 
 
@@ -65,7 +80,7 @@ namespace Kursovik {
 		/// <summary>
 		/// Обязательная переменная конструктора.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -87,13 +102,20 @@ namespace Kursovik {
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->add_stud = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
-			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
 			this->maskedTextBox2 = (gcnew System::Windows::Forms::MaskedTextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->groupBox3 = (gcnew System::Windows::Forms::GroupBox());
+			this->del_bttn = (gcnew System::Windows::Forms::Button());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->save_data_bttn = (gcnew System::Windows::Forms::Button());
+			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
+			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->groupBox1->SuspendLayout();
-			this->groupBox2->SuspendLayout();
+			this->groupBox3->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// menuStrip1
@@ -134,7 +156,7 @@ namespace Kursovik {
 			this->dataGridView1->GridColor = System::Drawing::SystemColors::AppWorkspace;
 			this->dataGridView1->Location = System::Drawing::Point(25, 101);
 			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->Size = System::Drawing::Size(502, 303);
+			this->dataGridView1->Size = System::Drawing::Size(502, 317);
 			this->dataGridView1->TabIndex = 1;
 			// 
 			// comboBox1
@@ -204,9 +226,9 @@ namespace Kursovik {
 			// add_stud
 			// 
 			this->add_stud->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
-			this->add_stud->Location = System::Drawing::Point(153, 26);
+			this->add_stud->Location = System::Drawing::Point(168, 19);
 			this->add_stud->Name = L"add_stud";
-			this->add_stud->Size = System::Drawing::Size(90, 21);
+			this->add_stud->Size = System::Drawing::Size(75, 21);
 			this->add_stud->TabIndex = 8;
 			this->add_stud->Text = L"Добавить";
 			this->add_stud->UseVisualStyleBackColor = true;
@@ -225,22 +247,9 @@ namespace Kursovik {
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"Создать группы:";
 			// 
-			// groupBox2
-			// 
-			this->groupBox2->Controls->Add(this->maskedTextBox2);
-			this->groupBox2->Controls->Add(this->label1);
-			this->groupBox2->Controls->Add(this->add_stud);
-			this->groupBox2->ForeColor = System::Drawing::SystemColors::Control;
-			this->groupBox2->Location = System::Drawing::Point(542, 185);
-			this->groupBox2->Name = L"groupBox2";
-			this->groupBox2->Size = System::Drawing::Size(249, 67);
-			this->groupBox2->TabIndex = 10;
-			this->groupBox2->TabStop = false;
-			this->groupBox2->Text = L"Добавить студентов:";
-			// 
 			// maskedTextBox2
 			// 
-			this->maskedTextBox2->Location = System::Drawing::Point(130, 27);
+			this->maskedTextBox2->Location = System::Drawing::Point(143, 20);
 			this->maskedTextBox2->Name = L"maskedTextBox2";
 			this->maskedTextBox2->Size = System::Drawing::Size(17, 20);
 			this->maskedTextBox2->TabIndex = 9;
@@ -248,11 +257,100 @@ namespace Kursovik {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(6, 30);
+			this->label1->Location = System::Drawing::Point(6, 23);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(123, 13);
 			this->label1->TabIndex = 6;
 			this->label1->Text = L"Количество студентов:";
+			// 
+			// groupBox3
+			// 
+			this->groupBox3->Controls->Add(this->del_bttn);
+			this->groupBox3->Controls->Add(this->label5);
+			this->groupBox3->Controls->Add(this->textBox1);
+			this->groupBox3->Controls->Add(this->maskedTextBox2);
+			this->groupBox3->Controls->Add(this->label4);
+			this->groupBox3->Controls->Add(this->label1);
+			this->groupBox3->Controls->Add(this->save_data_bttn);
+			this->groupBox3->Controls->Add(this->add_stud);
+			this->groupBox3->Controls->Add(this->checkBox1);
+			this->groupBox3->Controls->Add(this->label3);
+			this->groupBox3->ForeColor = System::Drawing::SystemColors::Control;
+			this->groupBox3->Location = System::Drawing::Point(542, 172);
+			this->groupBox3->Name = L"groupBox3";
+			this->groupBox3->Size = System::Drawing::Size(249, 151);
+			this->groupBox3->TabIndex = 11;
+			this->groupBox3->TabStop = false;
+			this->groupBox3->Text = L"Редактировать список";
+			// 
+			// del_bttn
+			// 
+			this->del_bttn->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
+			this->del_bttn->Location = System::Drawing::Point(143, 93);
+			this->del_bttn->Name = L"del_bttn";
+			this->del_bttn->Size = System::Drawing::Size(100, 21);
+			this->del_bttn->TabIndex = 12;
+			this->del_bttn->Text = L"Удалить";
+			this->del_bttn->UseVisualStyleBackColor = true;
+			this->del_bttn->Click += gcnew System::EventHandler(this, &AddData::del_bttn_Click);
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->ForeColor = System::Drawing::SystemColors::Control;
+			this->label5->Location = System::Drawing::Point(6, 77);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(93, 13);
+			this->label5->TabIndex = 11;
+			this->label5->Text = L"Укажите строки:";
+			// 
+			// textBox1
+			// 
+			this->textBox1->Location = System::Drawing::Point(9, 94);
+			this->textBox1->Name = L"textBox1";
+			this->textBox1->Size = System::Drawing::Size(120, 20);
+			this->textBox1->TabIndex = 10;
+			this->textBox1->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &AddData::textBox1_KeyPress);
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->Location = System::Drawing::Point(6, 124);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(104, 13);
+			this->label4->TabIndex = 3;
+			this->label4->Text = L"Сохранить данные:";
+			// 
+			// save_data_bttn
+			// 
+			this->save_data_bttn->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
+			this->save_data_bttn->Location = System::Drawing::Point(143, 119);
+			this->save_data_bttn->Name = L"save_data_bttn";
+			this->save_data_bttn->Size = System::Drawing::Size(100, 23);
+			this->save_data_bttn->TabIndex = 2;
+			this->save_data_bttn->Text = L"Сохранить данные";
+			this->save_data_bttn->UseVisualStyleBackColor = true;
+			this->save_data_bttn->Click += gcnew System::EventHandler(this, &AddData::save_data_bttn_Click);
+			// 
+			// checkBox1
+			// 
+			this->checkBox1->AutoSize = true;
+			this->checkBox1->Location = System::Drawing::Point(143, 54);
+			this->checkBox1->Name = L"checkBox1";
+			this->checkBox1->Size = System::Drawing::Size(15, 14);
+			this->checkBox1->TabIndex = 1;
+			this->checkBox1->UseVisualStyleBackColor = true;
+			this->checkBox1->CheckedChanged += gcnew System::EventHandler(this, &AddData::checkBox1_CheckedChanged);
+			this->checkBox1->Click += gcnew System::EventHandler(this, &AddData::checkBox1_Click);
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Location = System::Drawing::Point(6, 54);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(133, 13);
+			this->label3->TabIndex = 0;
+			this->label3->Text = L"Редактирование списка:";
 			// 
 			// AddData
 			// 
@@ -260,8 +358,8 @@ namespace Kursovik {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->ClientSize = System::Drawing::Size(1096, 463);
-			this->Controls->Add(this->groupBox2);
+			this->ClientSize = System::Drawing::Size(1096, 578);
+			this->Controls->Add(this->groupBox3);
 			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->comboBox4);
 			this->Controls->Add(this->comboBox3);
@@ -269,7 +367,7 @@ namespace Kursovik {
 			this->Controls->Add(this->comboBox1);
 			this->Controls->Add(this->dataGridView1);
 			this->Controls->Add(this->menuStrip1);
-			this->ForeColor = System::Drawing::SystemColors::Control;
+			this->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->MainMenuStrip = this->menuStrip1;
 			this->Name = L"AddData";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
@@ -281,8 +379,8 @@ namespace Kursovik {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
-			this->groupBox2->ResumeLayout(false);
-			this->groupBox2->PerformLayout();
+			this->groupBox3->ResumeLayout(false);
+			this->groupBox3->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -302,10 +400,23 @@ namespace Kursovik {
 	private: System::Void comboBox3_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void comboBox4_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void AddGroup();
+	public: System::Void rowcountchanged();
 	private: System::Void ClearGrid(int size);
 	private: System::Void add_groups_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void maskedTextBox1_Leave(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void add_stud_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void set_header_num();
-};
+	private: System::Boolean check_data_grid();
+	public: System::Void del_rows(int count_of_nums, int RowCount_dg);
+	private: System::Void checkBox1_CheckedChanged(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void checkBox1_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void save_data_bttn_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Boolean check_next_symbol(char symbol, int lensym);
+	private: System::Void textBox1_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e);
+	private: System::Void del_bttn_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Boolean RowWasDeleted(int* DeletedRows, int rowindex, int rowcount);
+	private: System::Void clear_variables_for_del(int rowcount);
+	private: System::Void sort_array(int count_of_nums);
+	private: System::Void simple_sort(int i, int j);
+	};
 }

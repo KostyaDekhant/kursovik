@@ -1,8 +1,13 @@
 #include "AddData.h"
 #include "StartForm.h"
+#include "Function.h"
+#include "Faculty.h"
+//#include "Directions.h"
+//#include "YearsOfUni.h"
+//#include "Groups.h"
+//#include "Students.h"
 #include <string>
 #include <fstream>
-#include "Function.h"
 #include <direct.h>
 
 #define MAX_STUD 50
@@ -10,6 +15,13 @@ using namespace std;
 
 extern string path = "C:\\Users\\Podor\\Documents\\GitHub\\kursovik\\Kursovik\\Data\\";
 int GridSize = 0;
+Faculty* fac = new class Faculty[10];
+Directions* dir = new class Directions[20];
+YearsOfUni* you = new class YearsOfUni[8];
+Groups* group = new class Groups[10];
+Students* stud = new class Students[40];
+
+
 
 System::Void Kursovik::AddData::вернутьсяToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
@@ -29,6 +41,9 @@ System::Void Kursovik::AddData::AddData_Load(System::Object^ sender, System::Eve
 	dataGridView1->RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode::AutoSizeToDisplayedHeaders;
 	maskedTextBox1->Mask = "00-00";
 	maskedTextBox2->Mask = "00";
+	dataGridView1->ReadOnly = true;
+	checkBox1->Text = "Выключен";
+	
 }
 
 System::Void Kursovik::AddData::SelectGrid(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
@@ -203,6 +218,7 @@ System::Void Kursovik::AddData::InfoAboutStusents()
 	else
 	{
 		MessageBox::Show("Информация о студентах отсутсвует!");
+		ClearGrid(GridSize);
 	}
 }
 
@@ -231,6 +247,14 @@ System::Void Kursovik::AddData::comboBox4_SelectedIndexChanged(System::Object^ s
 System::Void Kursovik::AddData::AddGroup()
 {
 	
+}
+
+System::Void Kursovik::AddData::rowcountchanged()
+{
+	if (dataGridView1->RowCount != 0)
+	{
+
+	}
 }
 
 System::Void Kursovik::AddData::ClearGrid(int size)
@@ -325,7 +349,7 @@ System::Void Kursovik::AddData::add_stud_Click(System::Object^ sender, System::E
 		for (int i = 0; i < count_stud; i++)
 		{
 			dataGridView1->Rows->Add();
-		}
+		}	
 	}
 	set_header_num();
 }
@@ -339,4 +363,349 @@ System::Void Kursovik::AddData::set_header_num()
 	}
 }
 
+System::Boolean Kursovik::AddData::check_data_grid() 
+{
+	
+	for (int i = 0; i < dataGridView1->RowCount; i++)
+	{
+		if (dataGridView1[0, i]->Value == nullptr)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+System::Void Kursovik::AddData::checkBox1_CheckedChanged(System::Object^ sender, System::EventArgs^ e)
+{
+	
+		
+}
+
+bool Flag_for_checkbox = false;
+
+System::Void Kursovik::AddData::checkBox1_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	if (checkBox1->Checked && !Flag_for_checkbox)
+	{
+		dataGridView1->ReadOnly = false;
+		checkBox1->Text = "Включён";
+
+		add_groups->Enabled = false;
+		add_stud->Enabled = false;
+	}
+	else
+	{
+		if (check_data_grid())
+		{
+			checkBox1->Checked = true;
+			MessageBox::Show("Не все данные введены!", "Внимание!");
+			Flag_for_checkbox = true;
+			return;
+		}
+		dataGridView1->ReadOnly = true;
+		Flag_for_checkbox = false;
+		checkBox1->Text = "Выключен";
+
+		add_groups->Enabled = true;
+		add_stud->Enabled = true;
+	}
+}
+
+System::Void Kursovik::AddData::save_data_bttn_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	
+}
+
+
+
+
+System::Boolean Kursovik::AddData::check_next_symbol(char symbol, int lensym)
+{
+	if (Char::IsDigit(symbol))
+	{
+		int len_of_num = 0;
+		int final_num = 0;
+		if (lensym >= 0)
+		{
+			while (textBox1->Text[lensym] != 44 && textBox1->Text[lensym] != 45)
+			{
+				final_num += (textBox1->Text[lensym] - '0') * pow(10, len_of_num);
+				len_of_num++;
+				if (lensym == 0)
+					break;
+				lensym--;
+			}
+			int datagv_row_count = dataGridView1->Rows->Count;
+			final_num *= 10;
+			final_num += (symbol - '0');
+			if (final_num > datagv_row_count)
+			{
+				return true;
+			}
+		}
+	}
+	else if (symbol == 44)
+	{
+		if (flag_for_dash)
+			flag_for_dash = false;
+	}
+	else if (symbol == 45)
+	{
+		if (!flag_for_dash)
+			flag_for_dash = true;
+		else
+			return true;
+	}
+	return false;
+}
+
+System::Void Kursovik::AddData::textBox1_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
+{
+	char symbol = e->KeyChar;
+	int len = 0;
+	if (textBox1->Text->Length > 0)
+	{
+		int lensym = textBox1->Text->Length - 1;
+		if (Char::IsDigit(textBox1->Text[lensym]))
+		{
+			len = 1;
+			if (check_next_symbol(symbol, lensym))
+				e->Handled = true;
+		}
+		else if (textBox1->Text[lensym] == 44 && !flag_for_dash && symbol == 8)
+		{
+			flag_for_dash = true;
+		}
+		else if (textBox1->Text[lensym] == 44 && flag_for_dash && symbol == 8)
+		{
+			flag_for_dash = false;
+		}
+	}
+	if ((symbol <= 47 || symbol >= 58) && symbol != 44 && symbol != 45 && symbol != 8
+		|| (textBox1->Text->Length == 0 && (symbol == 48 || symbol == 44 || symbol == 45))
+		|| ((symbol == 44 || symbol == 45 || symbol == 48) && !len))
+	{
+		e->Handled = true;
+		return;
+	}
+}
+
+System::Void Kursovik::AddData::del_bttn_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	if (textBox1->Text[textBox1->Text->Length - 1] == 44 || textBox1->Text[textBox1->Text->Length - 1] == 45)
+	{
+		textBox1->Text = textBox1->Text->Remove(textBox1->Text->Length - 1);
+	}
+	int count_of_nums = 0;
+	int len_of_text = textBox1->Text->Length - 1;
+	int temp_num = 0;
+	int len_of_num = 0;
+	bool flag_for_end = false;
+	while (len_of_text >= 0)
+	{
+		if (Char::IsDigit(textBox1->Text[len_of_text]) && !flag_for_end)
+		{
+			temp_num += (textBox1->Text[len_of_text] - '0') * pow(10, len_of_num);
+			len_of_num++;
+		}
+		else
+		{
+			Row_del_index[count_of_nums] = temp_num;
+			temp_num = 0;
+			len_of_num = 0;
+			if (textBox1->Text[len_of_text] == 44)
+				Row_del_index[count_of_nums + 1] = -1;
+			else if (textBox1->Text[len_of_text] == 45)
+				Row_del_index[count_of_nums + 1] = -2;
+			if(!flag_for_end)
+				count_of_nums += 2;
+		}
+		if (len_of_text == 0 && !flag_for_end)
+			flag_for_end = true;
+		else
+			len_of_text--;
+	}
+	sort_array(count_of_nums);
+	int RowCount_dg = dataGridView1->Rows->Count;
+	del_rows(count_of_nums, RowCount_dg);
+	
+}
+
+System::Boolean Kursovik::AddData::RowWasDeleted(int *DeletedRows, int rowindex, int rowcount)
+{
+	for (int i = 0; i < rowcount; i++)
+	{
+		if (rowindex == DeletedRows[i])
+			return true;
+	}
+	return false;
+}
+
+System::Void Kursovik::AddData::clear_variables_for_del(int rowcount)
+{
+	for (int i = 0; i < rowcount; i++)
+	{
+		DeletedRows[i] = 0;
+		Row_del_index[i] = 0;
+	}
+}
+
+System::Void Kursovik::AddData::sort_array(int count_of_nums)
+{
+	int temp_num = 0;
+	int temp_num1 = 0;
+	int temp_sym = 0;
+	for (int i = count_of_nums; i >= 2; i-=2)
+	{
+		for (int j = i - 2; j >= 0; j -= 2)
+		{
+			if (i - 3 > 0)
+			{
+				if (Row_del_index[j - 1] == -2) //i-3
+				{
+					simple_sort(j, j - 2);
+					if (Row_del_index[i] > Row_del_index[j - 2])
+					{
+						temp_num = Row_del_index[i];
+						temp_sym = Row_del_index[i - 1];
+						Row_del_index[i] = Row_del_index[j];
+						Row_del_index[i - 1] = Row_del_index[j - 1];
+						Row_del_index[j] = Row_del_index[j - 2];
+						Row_del_index[j - 1] = temp_sym;
+						Row_del_index[j - 2] = temp_num;
+						MessageBox::Show("1");
+					}
+					j -= 2;
+
+				}
+				else if (Row_del_index[i - 1] == -2 && Row_del_index[j - 3] != -2)
+				{
+					simple_sort(i, j);
+					if (Row_del_index[i-2] > Row_del_index[j - 2])
+					{
+						temp_num = Row_del_index[j - 2];
+						temp_sym = Row_del_index[j - 1];
+						Row_del_index[j - 2] = Row_del_index[i - 2];
+						Row_del_index[j - 1] = Row_del_index[i - 1];
+						Row_del_index[i - 2] = Row_del_index[i];
+						Row_del_index[i - 1] = temp_sym;
+						Row_del_index[i] = temp_num;
+						MessageBox::Show("2");
+					}
+					j -= 2;
+				}
+				else if (Row_del_index[i - 1] == -2 && Row_del_index[j - 3] == -2)
+				{
+					simple_sort(i, i - 2);
+					simple_sort(j - 2, j - 4);
+					if (Row_del_index[j] > Row_del_index[j - 4])
+					{
+						temp_num = Row_del_index[j - 2];
+						temp_sym = Row_del_index[j - 3];
+						temp_num1 = Row_del_index[j - 4];
+						Row_del_index[j - 2] = Row_del_index[i];
+						Row_del_index[j - 3] = Row_del_index[i - 1];
+						Row_del_index[j - 4] = Row_del_index[j];
+						Row_del_index[j] = temp_num1;
+						Row_del_index[i - 1] = temp_sym;
+						Row_del_index[i] = temp_num;
+						MessageBox::Show("3");
+					}
+					j -= 4;
+				}
+				else if (Row_del_index[i - 1] != -2 && (Row_del_index[j - 1] != -2))
+				{
+					simple_sort(i, j);
+					MessageBox::Show("4");
+				}
+				else 
+					simple_sort(i, j);
+					
+			}
+			else if (Row_del_index[i - 1] != -2)
+			{
+				MessageBox::Show("5");
+				simple_sort(i, j);
+			}
+				
+		}
+		//std::string str = "";
+		//for (int k = 0; k <= count_of_nums; k++)
+		//{
+		//	if (Row_del_index[k] > 0)
+		//		str = ConvertTostring(Row_del_index[k].ToString()) + str;
+		//	else if (Row_del_index[k] == -1)
+		//		str = "," + str;
+		//	else if (Row_del_index[k] == -2)
+		//		str = "-" + str;
+		//	//MessageBox::Show(Row_del_index[k].ToString());
+		//	str = ConvertTostring(Row_del_index[k].ToString()) + " " + str;
+		//}
+		//MessageBox::Show(ConvertToString(str));
+	}
+}
+
+System::Void Kursovik::AddData::simple_sort(int i, int j)
+{
+	if (Row_del_index[i] > Row_del_index[j])
+	{
+		int temp_num = Row_del_index[i];
+		Row_del_index[i] = Row_del_index[j];
+		Row_del_index[j] = temp_num;
+	}
+}
+
+
+System::Void Kursovik::AddData::del_rows(int count_of_nums, int RowCount_dg)
+{
+	int flag_for_comma = 0;
+	int count_of_del_rows = 0;
+	for (int i = 0; i <= count_of_nums; i+=2)
+	{
+		flag_for_comma = 0;
+		if (i <= count_of_nums)
+		{
+			if (Row_del_index[i + 1] == -1)
+			{
+				flag_for_comma = 1;
+			}
+			else if (Row_del_index[i + 1] == -2)
+			{
+				for (int j = Row_del_index[i+2]; j <= Row_del_index[i]; j++)
+				{
+					if (!RowWasDeleted(DeletedRows, j, RowCount_dg))
+					{
+						dataGridView1->Rows->RemoveAt(Row_del_index[i+2] - 1);
+						DeletedRows[count_of_del_rows] = j;
+						count_of_del_rows++;
+					}
+				}
+				i += 2;
+			}
+			else if (Row_del_index[i + 1] != -2 && Row_del_index[i + 1] != -1)
+			{
+				flag_for_comma = 1;
+			}
+		}
+		else
+			flag_for_comma = 1;
+		if (flag_for_comma)
+		{
+			if (!RowWasDeleted(DeletedRows, Row_del_index[i], RowCount_dg))
+			{
+				dataGridView1->Rows->RemoveAt(Row_del_index[i] - 1);
+				DeletedRows[count_of_del_rows] = Row_del_index[i];
+				count_of_del_rows++;
+			}
+			else
+			{
+				//MessageBox::Show("Такая строка уже была удалена!");
+			}
+		}
+	}
+	textBox1->Text = "";
+	clear_variables_for_del(RowCount_dg);
+	//set_header_num();
+}
 

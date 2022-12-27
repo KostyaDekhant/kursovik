@@ -5,7 +5,7 @@ using namespace std;
 class Students
 {
 private:
-	string name_group;
+	string name;
 	int count_stud;
 public:
 	Students();

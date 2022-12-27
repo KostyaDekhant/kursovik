@@ -3,11 +3,11 @@
 #include "Groups.h"
 using namespace std;
 
-class YearsOfUni
+class YearsOfUni : public Groups
 {
 private:
+	vector<Groups*> you;
 	int year;
-	class Groups group;
 public:
 	YearsOfUni();
 };

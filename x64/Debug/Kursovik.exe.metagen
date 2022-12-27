@@ -19,10 +19,16 @@ Class Kursovik.AddData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
+    System.Windows.Forms.DataGridView dataGridView1 : Public
+    Int32* Row_del_index : Public
+    Int32* DeletedRows : Public
     System.Windows.Forms.ComboBox comboBox1 : Public
     System.Windows.Forms.ComboBox comboBox2 : Public
     System.Windows.Forms.ComboBox comboBox3 : Public
     System.Windows.Forms.ComboBox comboBox4 : Public
+  Methods:
+    rowcountchanged(): PrivateScope, Public, HideBySig
+    del_rows(Int32, Int32): PrivateScope, Public, HideBySig
 Class Kursovik.StartForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
