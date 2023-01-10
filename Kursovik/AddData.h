@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Faculty.h"
 namespace Kursovik {
 
 	using namespace System;
@@ -39,7 +39,6 @@ namespace Kursovik {
 	private: System::Windows::Forms::ToolStripMenuItem^ файлToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ вернутьсяToolStripMenuItem;
 	public: System::Windows::Forms::DataGridView^ dataGridView1;
-	private:
 	public: int* Row_del_index = new int[1000];
 	public:	int* DeletedRows = new int[1000];
 	private: static bool flag_for_dash = false;
@@ -48,7 +47,13 @@ namespace Kursovik {
 	public: System::Windows::Forms::ComboBox^ comboBox3;
 	public: System::Windows::Forms::ComboBox^ comboBox4;
 	private: System::Windows::Forms::Button^ add_groups;
-	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox1;
+	public: int data_volume = 5;
+	//private: int GridSize = 0;
+	//private: bool Flag_for_checkbox = false;
+	//private: Faculty* fac = new class Faculty[10];
+	//private: Directions* direct = new class Directions[20];
+	//private: Groups* group = new class Groups[10];
+	//private: Students* stud = new class Students[40];
 
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Button^ add_stud;
@@ -65,6 +70,19 @@ namespace Kursovik {
 	private: System::Windows::Forms::Button^ del_bttn;
 	private: System::Windows::Forms::Label^ label5;
 	private: System::Windows::Forms::TextBox^ textBox1;
+	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox3;
+	private: System::Windows::Forms::Button^ years_add_bttn;
+	private: System::Windows::Forms::Label^ years_label;
+	private: System::Windows::Forms::Button^ directions_add_bttn;
+	private: System::Windows::Forms::Label^ dir_label;
+	private: System::Windows::Forms::Button^ faculty_add_bttn;
+	private: System::Windows::Forms::Label^ new_f_label;
+	private: System::Windows::Forms::TextBox^ textBox_faculty;
+	private: System::Windows::Forms::TextBox^ textBox_directions;
+	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox_directions;
+	private: System::Windows::Forms::Label^ label6;
+	private: System::Windows::Forms::Label^ label7;
+	private: System::Windows::Forms::MaskedTextBox^ maskedTextBox1;
 
 
 
@@ -98,10 +116,22 @@ namespace Kursovik {
 			this->comboBox3 = (gcnew System::Windows::Forms::ComboBox());
 			this->comboBox4 = (gcnew System::Windows::Forms::ComboBox());
 			this->add_groups = (gcnew System::Windows::Forms::Button());
-			this->maskedTextBox1 = (gcnew System::Windows::Forms::MaskedTextBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->add_stud = (gcnew System::Windows::Forms::Button());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->maskedTextBox1 = (gcnew System::Windows::Forms::MaskedTextBox());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->maskedTextBox_directions = (gcnew System::Windows::Forms::MaskedTextBox());
+			this->textBox_directions = (gcnew System::Windows::Forms::TextBox());
+			this->textBox_faculty = (gcnew System::Windows::Forms::TextBox());
+			this->years_add_bttn = (gcnew System::Windows::Forms::Button());
+			this->years_label = (gcnew System::Windows::Forms::Label());
+			this->directions_add_bttn = (gcnew System::Windows::Forms::Button());
+			this->dir_label = (gcnew System::Windows::Forms::Label());
+			this->faculty_add_bttn = (gcnew System::Windows::Forms::Button());
+			this->new_f_label = (gcnew System::Windows::Forms::Label());
+			this->maskedTextBox3 = (gcnew System::Windows::Forms::MaskedTextBox());
 			this->maskedTextBox2 = (gcnew System::Windows::Forms::MaskedTextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->groupBox3 = (gcnew System::Windows::Forms::GroupBox());
@@ -128,7 +158,7 @@ namespace Kursovik {
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(1096, 24);
+			this->menuStrip1->Size = System::Drawing::Size(1183, 24);
 			this->menuStrip1->TabIndex = 0;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
@@ -150,13 +180,14 @@ namespace Kursovik {
 			// dataGridView1
 			// 
 			this->dataGridView1->AllowUserToAddRows = false;
+			this->dataGridView1->AllowUserToDeleteRows = false;
 			this->dataGridView1->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::DisplayedCells;
 			this->dataGridView1->BackgroundColor = System::Drawing::SystemColors::ControlLightLight;
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->dataGridView1->GridColor = System::Drawing::SystemColors::AppWorkspace;
 			this->dataGridView1->Location = System::Drawing::Point(25, 101);
 			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->Size = System::Drawing::Size(502, 317);
+			this->dataGridView1->Size = System::Drawing::Size(502, 347);
 			this->dataGridView1->TabIndex = 1;
 			// 
 			// comboBox1
@@ -198,7 +229,7 @@ namespace Kursovik {
 			// add_groups
 			// 
 			this->add_groups->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
-			this->add_groups->Location = System::Drawing::Point(129, 26);
+			this->add_groups->Location = System::Drawing::Point(395, 109);
 			this->add_groups->Name = L"add_groups";
 			this->add_groups->Size = System::Drawing::Size(114, 20);
 			this->add_groups->TabIndex = 4;
@@ -206,22 +237,14 @@ namespace Kursovik {
 			this->add_groups->UseVisualStyleBackColor = true;
 			this->add_groups->Click += gcnew System::EventHandler(this, &AddData::add_groups_Click);
 			// 
-			// maskedTextBox1
-			// 
-			this->maskedTextBox1->Location = System::Drawing::Point(90, 26);
-			this->maskedTextBox1->Name = L"maskedTextBox1";
-			this->maskedTextBox1->Size = System::Drawing::Size(33, 20);
-			this->maskedTextBox1->TabIndex = 5;
-			this->maskedTextBox1->Leave += gcnew System::EventHandler(this, &AddData::maskedTextBox1_Leave);
-			// 
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(6, 26);
+			this->label2->Location = System::Drawing::Point(255, 113);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(78, 13);
+			this->label2->Size = System::Drawing::Size(97, 13);
 			this->label2->TabIndex = 7;
-			this->label2->Text = L"Номера групп";
+			this->label2->Text = L"Количество групп";
 			// 
 			// add_stud
 			// 
@@ -236,16 +259,144 @@ namespace Kursovik {
 			// 
 			// groupBox1
 			// 
-			this->groupBox1->Controls->Add(this->label2);
 			this->groupBox1->Controls->Add(this->maskedTextBox1);
+			this->groupBox1->Controls->Add(this->label7);
+			this->groupBox1->Controls->Add(this->label6);
+			this->groupBox1->Controls->Add(this->maskedTextBox_directions);
+			this->groupBox1->Controls->Add(this->textBox_directions);
+			this->groupBox1->Controls->Add(this->textBox_faculty);
+			this->groupBox1->Controls->Add(this->years_add_bttn);
+			this->groupBox1->Controls->Add(this->years_label);
+			this->groupBox1->Controls->Add(this->directions_add_bttn);
+			this->groupBox1->Controls->Add(this->dir_label);
+			this->groupBox1->Controls->Add(this->faculty_add_bttn);
+			this->groupBox1->Controls->Add(this->new_f_label);
+			this->groupBox1->Controls->Add(this->maskedTextBox3);
+			this->groupBox1->Controls->Add(this->label2);
 			this->groupBox1->Controls->Add(this->add_groups);
 			this->groupBox1->ForeColor = System::Drawing::SystemColors::Control;
 			this->groupBox1->Location = System::Drawing::Point(542, 101);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Size = System::Drawing::Size(249, 65);
+			this->groupBox1->Size = System::Drawing::Size(534, 159);
 			this->groupBox1->TabIndex = 9;
 			this->groupBox1->TabStop = false;
-			this->groupBox1->Text = L"Создать группы:";
+			this->groupBox1->Text = L"Создание объектов";
+			// 
+			// maskedTextBox1
+			// 
+			this->maskedTextBox1->Location = System::Drawing::Point(102, 108);
+			this->maskedTextBox1->Name = L"maskedTextBox1";
+			this->maskedTextBox1->Size = System::Drawing::Size(21, 20);
+			this->maskedTextBox1->TabIndex = 24;
+			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Location = System::Drawing::Point(255, 74);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(86, 13);
+			this->label7->TabIndex = 23;
+			this->label7->Text = L"Количество лет";
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Location = System::Drawing::Point(254, 78);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(0, 13);
+			this->label6->TabIndex = 22;
+			// 
+			// maskedTextBox_directions
+			// 
+			this->maskedTextBox_directions->Location = System::Drawing::Point(347, 71);
+			this->maskedTextBox_directions->Name = L"maskedTextBox_directions";
+			this->maskedTextBox_directions->Size = System::Drawing::Size(21, 20);
+			this->maskedTextBox_directions->TabIndex = 21;
+			// 
+			// textBox_directions
+			// 
+			this->textBox_directions->Location = System::Drawing::Point(257, 45);
+			this->textBox_directions->Name = L"textBox_directions";
+			this->textBox_directions->Size = System::Drawing::Size(111, 20);
+			this->textBox_directions->TabIndex = 20;
+			// 
+			// textBox_faculty
+			// 
+			this->textBox_faculty->Location = System::Drawing::Point(12, 45);
+			this->textBox_faculty->Name = L"textBox_faculty";
+			this->textBox_faculty->Size = System::Drawing::Size(111, 20);
+			this->textBox_faculty->TabIndex = 19;
+			// 
+			// years_add_bttn
+			// 
+			this->years_add_bttn->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F));
+			this->years_add_bttn->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
+			this->years_add_bttn->Location = System::Drawing::Point(129, 108);
+			this->years_add_bttn->Name = L"years_add_bttn";
+			this->years_add_bttn->Size = System::Drawing::Size(114, 20);
+			this->years_add_bttn->TabIndex = 18;
+			this->years_add_bttn->Text = L"Добавить курсы";
+			this->years_add_bttn->UseVisualStyleBackColor = true;
+			this->years_add_bttn->Click += gcnew System::EventHandler(this, &AddData::years_add_bttn_Click);
+			// 
+			// years_label
+			// 
+			this->years_label->AutoSize = true;
+			this->years_label->Location = System::Drawing::Point(19, 113);
+			this->years_label->Name = L"years_label";
+			this->years_label->Size = System::Drawing::Size(39, 13);
+			this->years_label->TabIndex = 17;
+			this->years_label->Text = L"Курсы";
+			// 
+			// directions_add_bttn
+			// 
+			this->directions_add_bttn->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F));
+			this->directions_add_bttn->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
+			this->directions_add_bttn->Location = System::Drawing::Point(374, 45);
+			this->directions_add_bttn->Name = L"directions_add_bttn";
+			this->directions_add_bttn->Size = System::Drawing::Size(135, 20);
+			this->directions_add_bttn->TabIndex = 16;
+			this->directions_add_bttn->Text = L"Добавить направление";
+			this->directions_add_bttn->UseVisualStyleBackColor = true;
+			this->directions_add_bttn->Click += gcnew System::EventHandler(this, &AddData::directions_add_bttn_Click);
+			// 
+			// dir_label
+			// 
+			this->dir_label->AutoSize = true;
+			this->dir_label->Location = System::Drawing::Point(254, 23);
+			this->dir_label->Name = L"dir_label";
+			this->dir_label->Size = System::Drawing::Size(75, 13);
+			this->dir_label->TabIndex = 15;
+			this->dir_label->Text = L"Направления";
+			// 
+			// faculty_add_bttn
+			// 
+			this->faculty_add_bttn->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F));
+			this->faculty_add_bttn->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
+			this->faculty_add_bttn->Location = System::Drawing::Point(129, 45);
+			this->faculty_add_bttn->Name = L"faculty_add_bttn";
+			this->faculty_add_bttn->Size = System::Drawing::Size(114, 20);
+			this->faculty_add_bttn->TabIndex = 14;
+			this->faculty_add_bttn->Text = L"Добавить факультет";
+			this->faculty_add_bttn->UseVisualStyleBackColor = true;
+			this->faculty_add_bttn->Click += gcnew System::EventHandler(this, &AddData::faculty_add_bttn_Click);
+			// 
+			// new_f_label
+			// 
+			this->new_f_label->AutoSize = true;
+			this->new_f_label->Location = System::Drawing::Point(9, 23);
+			this->new_f_label->Name = L"new_f_label";
+			this->new_f_label->Size = System::Drawing::Size(63, 13);
+			this->new_f_label->TabIndex = 13;
+			this->new_f_label->Text = L"Факультет";
+			// 
+			// maskedTextBox3
+			// 
+			this->maskedTextBox3->Location = System::Drawing::Point(363, 109);
+			this->maskedTextBox3->Name = L"maskedTextBox3";
+			this->maskedTextBox3->Size = System::Drawing::Size(15, 20);
+			this->maskedTextBox3->TabIndex = 12;
+			this->maskedTextBox3->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &AddData::maskedTextBox3_KeyPress);
 			// 
 			// maskedTextBox2
 			// 
@@ -276,7 +427,7 @@ namespace Kursovik {
 			this->groupBox3->Controls->Add(this->checkBox1);
 			this->groupBox3->Controls->Add(this->label3);
 			this->groupBox3->ForeColor = System::Drawing::SystemColors::Control;
-			this->groupBox3->Location = System::Drawing::Point(542, 172);
+			this->groupBox3->Location = System::Drawing::Point(542, 297);
 			this->groupBox3->Name = L"groupBox3";
 			this->groupBox3->Size = System::Drawing::Size(249, 151);
 			this->groupBox3->TabIndex = 11;
@@ -358,7 +509,7 @@ namespace Kursovik {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->ClientSize = System::Drawing::Size(1096, 578);
+			this->ClientSize = System::Drawing::Size(1183, 605);
 			this->Controls->Add(this->groupBox3);
 			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->comboBox4);
@@ -390,22 +541,36 @@ namespace Kursovik {
 	private: System::Void AddData_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e);
 	private: System::Void AddData_Load(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void SelectGrid(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e);
-	private: System::Void CheckComboBox1(int index);
-	private: System::Void CheckComboBox2(int index2);
-	private: System::Void CheckComboBox3(int index3);
-	private: System::Void CheckComboBox4(int index4);
-	private: System::Void InfoAboutStusents();
+	private: System::Void ChangeYear();
+	private: System::Void LoadForm();
+	public: System::Void ShiftData(int temp_shift);
+	public: System::Void AddComboBoxFaculty(ComboBox^ combobox1, ComboBox^ combobox2, ComboBox^ combobox3, ComboBox^ combobox4);
+	public: System::Void AddComboBoxDirect(ComboBox^ combobox1, ComboBox^ combobox2, ComboBox^ combobox3, ComboBox^ combobox4);
+	public: System::Void AddComboBoxYears(ComboBox^ combobox1, ComboBox^ combobox2, ComboBox^ combobox3, ComboBox^ combobox4);
+	public: System::Void AddComboBoxGroups(ComboBox^ combobox1, ComboBox^ combobox2, ComboBox^ combobox3, ComboBox^ combobox4);
+	public: System::Void PrintStudents(int index_fac, int index_dir, int index_you, int index_groups, DataGridView^ dataGridView1);
+	public: System::Void OpenFileFacult();
+	private: System::Void OpenFileDirect(int index_fac);
+	private: System::Void OpenFileYears(int index_fac, int index_dir);
+	private: System::Void OpenFileGroups(int index_fac, int index_dir, int index_you);
+	private: System::Void OpenFileStudents(int index_fac, int index_dir, int index_you, int index_groups);
 	private: System::Void comboBox1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void comboBox2_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void comboBox3_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void comboBox4_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void AddGroup();
+	private: System::Void CreateYear(int index_fac, int index_dir, int index_you);
+	private: System::Void CreateYearNames(int index_fac, int index_dir);
+	private: System::Void CreateFaculty(); //, int dir_count
+	private: System::Void CreateDirections();
+	private: System::Void CreateGrid();
+	private: System::Void CreateFiles(int flag, int index_fac, int index_dir, int index_you, int index_groups);
+	private: System::Void PrintClasses();
 	public: System::Void rowcountchanged();
 	private: System::Void ClearGrid(int size);
 	private: System::Void add_groups_Click(System::Object^ sender, System::EventArgs^ e);
-	private: System::Void maskedTextBox1_Leave(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void add_stud_Click(System::Object^ sender, System::EventArgs^ e);
-	private: System::Void set_header_num();
+	public: System::Void set_header_num(DataGridView^ dataGridView1);
 	private: System::Boolean check_data_grid();
 	public: System::Void del_rows(int count_of_nums, int RowCount_dg);
 	private: System::Void checkBox1_CheckedChanged(System::Object^ sender, System::EventArgs^ e);
@@ -418,5 +583,10 @@ namespace Kursovik {
 	private: System::Void clear_variables_for_del(int rowcount);
 	private: System::Void sort_array(int count_of_nums);
 	private: System::Void simple_sort(int i, int j);
-	};
+	private: System::Void maskedTextBox3_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e);
+	private: System::Void faculty_add_bttn_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void directions_add_bttn_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void years_add_bttn_Click(System::Object^ sender, System::EventArgs^ e);
+	public:  System::Void getFac(Faculty* facult);
+};
 }

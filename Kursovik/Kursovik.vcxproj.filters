@@ -39,6 +39,9 @@
     <ClCompile Include="AddData.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Inq.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StartForm.h">
@@ -63,6 +66,9 @@
       <Filter>Исходные файлы</Filter>
     </ClInclude>
     <ClInclude Include="AddData.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Inq.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

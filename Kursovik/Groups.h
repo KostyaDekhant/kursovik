@@ -1,17 +1,26 @@
 #pragma once
-#include <string>
-#include <vector>
 #include "Students.h"
-using namespace std;
 
-class Groups : public Students
+class Groups
 {
 private:
-	string name_group;
-	vector<Students*> stud;
+	std::string name_group;
+	Students* stud = new class Students[50];
 	int year_of_admission;
-	static int count_group;
-	
+	//int count_group;
+	int count_students;
 public:
 	Groups();
+	~Groups();
+	std::string getNameG();
+	//int getCountG();
+	int getCountStudG();
+	void operator=(class Groups group);
+	Students getStud(int index_stud);
+
+	void setCountStudG(int count);
+	void setStudG(class Students& stud, int index_stud);
+	void setCountG(int count);
+	void setNameG(std::string name_you);
+	//void setVectorG(class Students& student);
 };

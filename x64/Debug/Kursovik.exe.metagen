@@ -1,4 +1,5 @@
   Kursovik.AddData.resources - Embedded, ContainedInManifestFile, 
+  Kursovik.Inq.resources - Embedded, ContainedInManifestFile, 
   Kursovik.StartForm.resources - Embedded, ContainedInManifestFile, 
 ImageRuntimeVersion: v4.0.30319
 Assembly Kursovik, Version=0.0.*, Culture=Инвариантный язык (Инвариантная страна): 
@@ -26,9 +27,24 @@ Class Kursovik.AddData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     System.Windows.Forms.ComboBox comboBox2 : Public
     System.Windows.Forms.ComboBox comboBox3 : Public
     System.Windows.Forms.ComboBox comboBox4 : Public
+    Int32 data_volume : Public
   Methods:
+    ShiftData(Int32): PrivateScope, Public, HideBySig
+    AddComboBoxFaculty(ComboBox, ComboBox, ComboBox, ComboBox): PrivateScope, Public, HideBySig
+    AddComboBoxDirect(ComboBox, ComboBox, ComboBox, ComboBox): PrivateScope, Public, HideBySig
+    AddComboBoxYears(ComboBox, ComboBox, ComboBox, ComboBox): PrivateScope, Public, HideBySig
+    AddComboBoxGroups(ComboBox, ComboBox, ComboBox, ComboBox): PrivateScope, Public, HideBySig
+    PrintStudents(Int32, Int32, Int32, Int32, DataGridView): PrivateScope, Public, HideBySig
+    OpenFileFacult(): PrivateScope, Public, HideBySig
     rowcountchanged(): PrivateScope, Public, HideBySig
+    set_header_num(DataGridView): PrivateScope, Public, HideBySig
     del_rows(Int32, Int32): PrivateScope, Public, HideBySig
+    getFac(Faculty*): PrivateScope, Public, HideBySig
 Class Kursovik.StartForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 first_start : Public, Static
+Class Kursovik.Inq: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName

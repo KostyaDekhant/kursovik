@@ -120,6 +120,7 @@
     <ClCompile Include="Faculty.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="Groups.cpp" />
+    <ClCompile Include="Inq.cpp" />
     <ClCompile Include="StartForm.cpp" />
     <ClCompile Include="Students.cpp" />
     <ClCompile Include="YearsOfUni.cpp" />
@@ -132,6 +133,9 @@
     <ClInclude Include="Faculty.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="Groups.h" />
+    <ClInclude Include="Inq.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="StartForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -148,6 +152,9 @@
   <ItemGroup>
     <EmbeddedResource Include="AddData.resx">
       <DependentUpon>AddData.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inq.resx">
+      <DependentUpon>Inq.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StartForm.resx">
       <DependentUpon>StartForm.h</DependentUpon>

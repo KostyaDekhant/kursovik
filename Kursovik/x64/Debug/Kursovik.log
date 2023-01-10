@@ -1,6 +1,3 @@
-﻿  AddData.cpp
-C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\AddData.cpp(433,70): warning C4244: +=: преобразование "double" в "int", возможна потеря данных
-C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\AddData.cpp(465,14): warning C4244: инициализация: преобразование "wchar_t" в "char", возможна потеря данных
-C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\AddData.cpp(509,73): warning C4244: +=: преобразование "double" в "int", возможна потеря данных
+﻿  Inq.cpp
   AddData.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
   Kursovik.vcxproj -> C:\Users\Podor\Documents\GitHub\kursovik\x64\Debug\Kursovik.exe

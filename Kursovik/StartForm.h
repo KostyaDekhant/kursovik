@@ -46,7 +46,7 @@ namespace Kursovik {
 
 	private: System::Windows::Forms::Button^ minimize_bttn;
 
-
+	public: static int first_start = 1;
 
 	private: System::Windows::Forms::Button^ exit_bttn;
 	private: System::Windows::Forms::Panel^ panel1;
@@ -235,6 +235,7 @@ namespace Kursovik {
 			this->make_inq->TabIndex = 1;
 			this->make_inq->Text = L"«‡ÔÓÒ";
 			this->make_inq->UseVisualStyleBackColor = false;
+			this->make_inq->Click += gcnew System::EventHandler(this, &StartForm::make_inq_Click);
 			// 
 			// report
 			// 
@@ -295,5 +296,6 @@ private: System::Void StartForm_MouseDown(System::Object^ sender, System::Window
 private: System::Void add_data_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void ‚˚ıÓ‰ToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void StartForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e);
+private: System::Void make_inq_Click(System::Object^ sender, System::EventArgs^ e);
 };
 }

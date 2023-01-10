@@ -1,6 +1,7 @@
 #define SCREENW 1920
 #include "StartForm.h"
 #include "AddData.h"
+#include "Inq.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -13,6 +14,8 @@ void main(array<String^>^ args) {
 	Kursovik::StartForm form;
 	Application::Run(% form);
 }
+
+
 
 //struct Point {
 //	int X;
@@ -49,7 +52,13 @@ System::Void Kursovik::StartForm::panel1_MouseMove(System::Object^ sender, Syste
 
 System::Void Kursovik::StartForm::StartForm_Load(System::Object^ sender, System::EventArgs^ e)
 {
-	
+	if (first_start)
+	{
+		AddData^ ad = gcnew AddData();
+		ad->OpenFileFacult();
+		ad->Close();
+		first_start = 0;
+	}
 }
 static int add_width = 0;
 
@@ -119,6 +128,13 @@ System::Void Kursovik::StartForm::âûõîäToolStripMenuItem_Click(System::Object^ s
 System::Void Kursovik::StartForm::StartForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e)
 {
 	Environment::Exit(0);
+}
+
+System::Void Kursovik::StartForm::make_inq_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	Inq^ inq = gcnew Inq();
+	this->Hide();
+	inq->Show();
 }
 
 System::Void Kursovik::StartForm::panel1_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)

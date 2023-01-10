@@ -3,3 +3,4 @@ C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\x64\Debug\Kursovik.StartForm.r
 C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\x64\Debug\Kursovik.vcxproj.GenerateResource.cache
 C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\x64\Debug\Kursovik.vcxproj.SuggestedBindingRedirects.cache
 C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\x64\Debug\Kursovik.AddData.resources
+C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\x64\Debug\Kursovik.Inq.resources
