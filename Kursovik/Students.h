@@ -9,7 +9,8 @@ private:
 	std::string lastname;
 	int gpa;
 	std::string phone_number;
-	//int count_stud = 0;
+	bool social_scholarship = false;
+	int special_scholarship;
 public:
 	Students();
 	~Students();
@@ -18,11 +19,13 @@ public:
 	std::string getlastname();
 	int getGPA();
 	std::string getPhone_num();
-	//int getCountStud();
+	int getSpecial();
+	bool getSocial();
 
 	void operator=(class Students student);
 	void setFIO(std::string lastname, std::string firstname, std::string midname);
 	void setGPA(int gpa);
 	void setPhone_num(std::string phone_number);
-	//void setCountStud(int count_stud);
+	void setSpecial(int special);
+	void setSocial(bool social);
 };

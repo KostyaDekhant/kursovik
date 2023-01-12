@@ -1,7 +1,6 @@
 #include "AddData.h"
 #include "StartForm.h"
 #include "Function.h"
-//#include "Faculty.h"
 #include <string>
 #include <fstream>
 #include <direct.h>
@@ -15,6 +14,7 @@ bool Flag_for_checkbox = false;
 YearsOfUni you_temp = class YearsOfUni();
 int last_year_int;
 Faculty* fac = new class Faculty[15];
+int sholarship[10];
 
 System::Void Kursovik::AddData::вернутьсяToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
@@ -83,7 +83,7 @@ System::Void Kursovik::AddData::LoadForm()
 		add_stud->Enabled = true;
 	else
 		add_stud->Enabled = false;
-	del_bttn->Enabled = false;
+	//del_bttn->Enabled = false;
 	save_data_bttn->Enabled = false;
 	dataGridView1->ForeColor = Color::Black;
 	dataGridView1->RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode::AutoSizeToDisplayedHeaders;
@@ -92,6 +92,42 @@ System::Void Kursovik::AddData::LoadForm()
 	maskedTextBox_directions->Mask = "00";
 	dataGridView1->ReadOnly = true;
 	checkBox1->Text = "Выключен";
+	OpenSholarFile();
+}
+
+System::Void Kursovik::AddData::GetFIO(string FIO, string* last, string* first, string* mid)
+{
+	string str[3] = {"","",""};
+	string temp = "";
+	int count_str = 0;
+	for (int i = 0; i < FIO.length(); i++)
+	{
+		temp += FIO[i];
+		if (FIO[i+1] == ' ' || i == FIO.length()-2)
+		{
+			if(i == FIO.length() - 2)
+				temp += FIO[i+1];
+			str[count_str] = temp;
+			temp = "";
+			count_str++;
+			i++;
+		}
+	}
+	*last = str[0];
+	*first = str[1];
+	*mid = str[2];
+}
+
+System::Void Kursovik::AddData::OpenSholarFile()
+{
+	ifstream sholar(path + "Sholarship.txt");
+	string sholars[4];
+	int sholar_count = 0;
+	while (getline(sholar, sholars[sholar_count]))
+	{
+		sholarship[sholar_count] = stoi(sholars[sholar_count]);
+		sholar_count++;
+	}
 }
 
 System::Void Kursovik::AddData::faculty_add_bttn_Click(System::Object^ sender, System::EventArgs^ e)
@@ -137,7 +173,206 @@ Void Kursovik::AddData::getFac(Faculty* facult)
 	}
 }
 
-System::Void Kursovik::AddData::CreateFaculty() //, int dir_count
+System::Int32 Kursovik::AddData::Scholarship_Calculation(int fac_index, int dir_index, int year_index, int group_index, int stud_index)
+{
+	
+	Students stud = class Students();
+	int sholar = 0;
+	stud = fac[fac_index].getStudF(dir_index, year_index, group_index, stud_index);
+	if (stud.getGPA() >= 90)
+	{
+		sholar += sholarship[0] * 2;
+	}
+	else if (stud.getGPA() >= 75)
+	{
+		sholar += sholarship[0] * 1.5;
+	}
+	else if (stud.getGPA() >= 50)
+	{
+		sholar += sholarship[0];
+	}
+	else if (stud.getSocial() == true)
+	{
+		sholar += sholarship[1];
+	}
+	if (stud.getSocial() == true && stud.getGPA() >= 50)
+	{
+		sholar += sholarship[2];
+	}
+	if (stud.getSpecial() != 0)
+	{
+		sholar += stud.getSpecial();
+	}
+	return sholar;
+}
+
+System::Void Kursovik::AddData::textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e)
+{
+	
+}
+
+System::Void Kursovik::AddData::maskedTextBox1_TextChanged(System::Object^ sender, System::EventArgs^ e)
+{
+	for (int i = 0; i < maskedTextBox1->Text->Length; i++)
+	{
+		if (maskedTextBox1->Text[i] <= 47 || maskedTextBox1->Text[i] >= 58)
+		{
+			maskedTextBox1->Text = "";
+			return;
+		}
+	}
+}
+
+System::Void Kursovik::AddData::del_fac_bttn_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	string fac_name = fac[comboBox1->SelectedIndex].getNameF();
+	if (MessageBox::Show("Вы действительно хотите удалить \"" + ConvertToString(fac_name) + "\"?", "",
+		MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes)
+	{
+		ofstream facultfile(path + "Faculty.txt");
+		int count_fac = fac->getCountF();
+		for (int i = 0; i < count_fac; i++)
+		{
+			if (i != comboBox1->SelectedIndex)
+			{
+				facultfile << fac[i].getNameF();
+				if (i != count_fac - 1)
+				{
+					facultfile << endl;
+				}
+			}
+		}
+		int count_fac_classes = 14;
+		while (fac[count_fac_classes].getNameF() != "")
+			count_fac_classes--;
+		fac[count_fac_classes] = fac[comboBox1->SelectedIndex];
+		for (int i = comboBox1->SelectedIndex; i < count_fac; i++)
+		{
+			fac[i] = fac[i + 1];
+		}
+		fac->setCountF(count_fac - 1);
+		facultfile.close();
+		rename((path + fac_name).c_str(), (path + fac_name + " Временный").c_str());
+	}
+}
+
+System::Void Kursovik::AddData::del_dir_bttn_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	string fac_name = fac[comboBox1->SelectedIndex].getNameF();
+	string dir_name = fac[comboBox1->SelectedIndex].getDirNameF(comboBox2->SelectedIndex);
+	if (MessageBox::Show("Вы действительно хотите удалить \"" + ConvertToString(dir_name) + "\"?", "",
+		MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes)
+	{
+		ofstream dirfile(path + fac_name + "\\" + "Direction.txt");
+		int count_dir = fac[comboBox1->SelectedIndex].getCountInDirF();
+		for (int i = 0; i < count_dir; i++)
+		{
+			if (i != comboBox2->SelectedIndex)
+			{
+				dirfile << fac[comboBox1->SelectedIndex].getDirNameF(i) << endl;
+				dirfile << fac[comboBox1->SelectedIndex].getDirF(i).getYearsOfEdD();
+				if (i != count_dir - 1)
+				{
+					dirfile << endl;
+				}
+			}
+		}
+		int count_dir_classes = 19;
+		while (fac[comboBox1->SelectedIndex].getDirNameF(count_dir_classes) != "")
+		{
+			count_dir_classes--;
+		}
+		fac[comboBox1->SelectedIndex].setDirF(fac[comboBox1->SelectedIndex].getDirF(comboBox2->SelectedIndex),count_dir_classes);
+		for (int i = comboBox2->SelectedIndex; i < count_dir; i++)
+		{
+			fac[comboBox1->SelectedIndex].setDirF(fac[comboBox1->SelectedIndex].getDirF(i+1), i);
+		}
+		fac->setCountInDirF(count_dir - 1);
+		dirfile.close();
+		rename((path + fac_name + "\\" + dir_name).c_str(), (path + fac_name + "\\" + dir_name + " Временный").c_str());
+	}
+}
+
+System::Void Kursovik::AddData::del_year_bttn_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	string fac_name = fac[comboBox1->SelectedIndex].getNameF();
+	string dir_name = fac[comboBox1->SelectedIndex].getDirNameF(comboBox2->SelectedIndex);
+	string year_name = fac[comboBox1->SelectedIndex].getYearsF(comboBox2->SelectedIndex, comboBox3->SelectedIndex).getNameY();
+	if (MessageBox::Show("Вы действительно хотите удалить \"" + ConvertToString(year_name) + "\"?", "",
+		MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes)
+	{
+		ofstream youfile(path + fac_name + "\\" + dir_name + "\\" + "YearsOfUni.txt");
+		int count_years = fac[comboBox1->SelectedIndex].getDirF(comboBox2->SelectedIndex).getYearsOfEdD();
+		for (int i = 0; i < count_years; i++)
+		{
+			if (i != comboBox3->SelectedIndex)
+			{
+				youfile << fac[comboBox1->SelectedIndex].getYearsF(comboBox2->SelectedIndex, i).getNameY() << endl;
+				youfile << fac[comboBox1->SelectedIndex].getYearsF(comboBox2->SelectedIndex, i).getYearOfStartY();
+				if (i != count_years - 1)
+				{
+					youfile << endl;
+				}
+			}
+		}
+		int count_you_classes = 14;
+		while (fac[comboBox1->SelectedIndex].getYearsF(comboBox2->SelectedIndex, count_you_classes).getNameY() != "")
+		{
+			count_you_classes--;
+		}
+		fac[comboBox1->SelectedIndex].setYearsF(fac[comboBox1->SelectedIndex].getYearsF(comboBox2->SelectedIndex, comboBox3->SelectedIndex), comboBox2->SelectedIndex, count_you_classes);
+		for (int i = comboBox3->SelectedIndex; i < count_years; i++)
+		{
+			fac[comboBox1->SelectedIndex].setYearsF(fac[comboBox1->SelectedIndex].getYearsF(comboBox2->SelectedIndex, i+1), comboBox2->SelectedIndex, i);
+		}
+		fac[comboBox1->SelectedIndex].getDirF(comboBox2->SelectedIndex).setYearsOfEdD(count_years +1);
+		youfile.close();
+		rename((path + fac_name + "\\" + dir_name + "\\" + year_name).c_str(), (path + fac_name + "\\" + dir_name + "\\" + year_name + " Временный").c_str());
+	}
+}
+
+System::Void Kursovik::AddData::del_gr_bttn_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	string fac_name = fac[comboBox1->SelectedIndex].getNameF();
+	string dir_name = fac[comboBox1->SelectedIndex].getDirNameF(comboBox2->SelectedIndex);
+	string year_name = fac[comboBox1->SelectedIndex].getYearsF(comboBox2->SelectedIndex, comboBox3->SelectedIndex).getNameY();
+	string gr_name = fac[comboBox1->SelectedIndex].getGroupF(comboBox2->SelectedIndex, comboBox3->SelectedIndex, comboBox4->SelectedIndex).getNameG();
+	if (MessageBox::Show("Вы действительно хотите удалить \"" + 
+		ConvertToString(gr_name) + "\"?", "",
+		MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes)
+	{
+		ofstream grfile(path + fac_name + "\\" + dir_name + "\\" + year_name + "\\" + "Groups.txt");
+		int count_gr = fac[comboBox1->SelectedIndex].getYearsF(comboBox2->SelectedIndex, comboBox3->SelectedIndex).getCountGroupsY();
+		for (int i = 0; i < count_gr; i++)
+		{
+			if (i != comboBox4->SelectedIndex)
+			{
+				grfile << fac[comboBox1->SelectedIndex].getGroupF(comboBox2->SelectedIndex, comboBox3->SelectedIndex, i).getNameG();
+				grfile << endl;
+			}
+		}
+		int count_gr_classes = 19;
+		while (fac[comboBox1->SelectedIndex].getGroupF(comboBox2->SelectedIndex, comboBox3->SelectedIndex, count_gr_classes).getNameG() != "")
+		{
+			count_gr_classes--;
+		}
+		fac[comboBox1->SelectedIndex].setGroupsF(fac[comboBox1->SelectedIndex].getGroupF(comboBox2->SelectedIndex, comboBox3->SelectedIndex, comboBox4->SelectedIndex), comboBox2->SelectedIndex, comboBox3->SelectedIndex, count_gr_classes);
+		for (int i = comboBox4->SelectedIndex; i < count_gr; i++)
+		{
+			fac[comboBox1->SelectedIndex].setGroupsF(fac[comboBox1->SelectedIndex].getGroupF(comboBox2->SelectedIndex, comboBox3->SelectedIndex, i+1), comboBox2->SelectedIndex, comboBox3->SelectedIndex, i);
+		}
+		YearsOfUni you = class YearsOfUni();
+		you = fac[comboBox1->SelectedIndex].getYearsF(comboBox2->SelectedIndex, comboBox3->SelectedIndex);
+		you.setCountGroupsY(count_gr-1);
+		fac[comboBox1->SelectedIndex].setYearsF(you,comboBox2->SelectedIndex, comboBox3->SelectedIndex);
+		grfile.close();
+		rename((path + fac_name + "\\" + dir_name + "\\" + year_name + "\\" + gr_name).c_str(), 
+			(path + fac_name + "\\" + dir_name + "\\" + year_name + "\\" + gr_name + " Временный").c_str());
+	}
+}
+
+
+System::Void Kursovik::AddData::CreateFaculty() 
 {
 	int fac_count_before = fac->getCountF();
 	string name = ConvertTostring(textBox_faculty->Text);
@@ -146,8 +381,6 @@ System::Void Kursovik::AddData::CreateFaculty() //, int dir_count
 	//fac[fac->getCountF()].setCountInDirF(dir_count);
 	fac[fac->getCountF()].setCountF(fac_count_before + 1);
 	_mkdir((path + name).c_str());
-	//ofstream dir(path + repos + "Direction.txt");
-	//dir.close();
 	fstream facultfile(path + "Faculty.txt", ios_base::app);
 	facultfile << endl << name;
 	facultfile.close();
@@ -210,8 +443,6 @@ System::Void Kursovik::AddData::CreateYear(int index_fac, int index_dir, int ind
 	string repos = fac[index_fac].getNameF() + "\\" + fac[index_fac].getDirNameF(index_dir) + "\\";
 	string year = you.getNameY();
 	_mkdir((path + repos + year).c_str());
-	//ofstream group(path + repos + year + "\\" + "Groups.txt");
-	//group.close();
 }
 
 System::Void Kursovik::AddData::CreateYearNames(int index_fac, int index_dir)
@@ -284,12 +515,10 @@ System::Void Kursovik::AddData::ShiftData(int temp_shift)
 System::Void Kursovik::AddData::AddComboBoxFaculty(ComboBox^ combobox1, ComboBox^ combobox2, ComboBox^ combobox3, ComboBox^ combobox4)
 {
 	combobox1->Items->Clear();
-	//comboBox1->Items->Clear();
 	int count_fac = fac->getCountF();
 	if (!count_fac)
 	{
 		combobox1->Text = "";
-		//comboBox1->Text = "";
 		combobox2->Text = "";
 		combobox3->Text = "";
 		combobox4->Text = "";
@@ -299,7 +528,6 @@ System::Void Kursovik::AddData::AddComboBoxFaculty(ComboBox^ combobox1, ComboBox
 	for (int i = 0; i < count_fac; i++)
 	{
 		combobox1->Items->Add(ConvertToString(fac[i].getNameF()));
-		//comboBox1->Items->Add(ConvertToString(fac[i].getNameF()));
 	}
 	combobox1->SelectedIndex = 0;
 
@@ -376,10 +604,15 @@ System::Void Kursovik::AddData::AddComboBoxGroups(ComboBox^ combobox1, ComboBox^
 
 System::Void Kursovik::AddData::CreateGrid()
 {
-	dataGridView1->ColumnCount = data_volume-2;
+	dataGridView1->ColumnCount = data_volume-3;
 	dataGridView1->Columns[0]->HeaderText = "ФИО";
 	dataGridView1->Columns[1]->HeaderText = "Телефон";
-	dataGridView1->Columns[2]->HeaderText = "Средний балл";
+	dataGridView1->Columns[2]->HeaderText = "Средний \nбалл";
+	dataGridView1->Columns[2]->Width = 20;
+	dataGridView1->Columns[3]->HeaderText = "Доп. \nстипендия";
+	DataGridViewCheckBoxColumn^ cbc = gcnew DataGridViewCheckBoxColumn();
+	cbc->HeaderText = "Соц. стипендия";
+	dataGridView1->Columns->Insert(4, cbc);
 }
 
 System::Void Kursovik::AddData::CreateFiles(int flag, int index_fac, int index_dir, 
@@ -426,22 +659,99 @@ System::Void Kursovik::AddData::CreateFiles(int flag, int index_fac, int index_d
 	file.close();
 }
 
-System::Void Kursovik::AddData::PrintStudents(int index_fac, int index_dir, int index_you, int index_groups, DataGridView^ dataGridView1)
+System::Void Kursovik::AddData::SaveStudFile(int index_fac, int index_dir, int index_you, int index_groups)
+{ 
+	
+	YearsOfUni you = class YearsOfUni();
+	you = fac[index_fac].getYearsF(index_dir, index_you);
+	Students stud = class Students();
+	int row_count = dataGridView1->RowCount;
+	Groups gr = class Groups();
+	gr = fac[index_fac].getGroupF(index_dir, index_you, index_groups);
+	gr.setCountStudG(row_count);
+	fac[index_fac].setGroupsF(gr, index_dir, index_you, index_groups);
+	for (int i = 0; i < row_count; i++)
+	{
+		string FIO = ConvertTostring(dataGridView1->Rows[i]->Cells[0]->Value->ToString());
+
+		string first = "";
+		string last = "";
+		string mid = "";
+		GetFIO(FIO, &last, &first, &mid);
+		stud.setFIO(last, first, mid);
+		stud.setPhone_num(ConvertTostring(dataGridView1->Rows[i]->Cells[1]->Value->ToString()));
+		stud.setGPA(stoi(ConvertTostring((dataGridView1->Rows[i]->Cells[2]->Value->ToString()))));
+		stud.setSpecial(stoi(ConvertTostring((dataGridView1->Rows[i]->Cells[3]->Value->ToString()))));
+		if(Convert::ToBoolean(dataGridView1->Rows[i]->Cells[4]->Value))
+			stud.setSocial(true);
+		else
+			stud.setSocial(false);
+		fac[index_fac].setStudF(stud, index_dir, index_you, index_groups,i);
+	}
+	string filetxt = "Students.txt";
+	string repos = fac[index_fac].getNameF() + "\\" + fac[index_fac].getDirNameF(index_dir) + +"\\"
+		+ you.getNameY() + "\\" + you.getGroupNameY(index_groups) + "\\";
+	ofstream studentfile(path + repos + filetxt);
+	int stud_count = row_count;
+	for (int i = 0; i < stud_count; i++)
+	{
+		stud = fac[index_fac].getStudF(index_dir, index_you, index_groups, i);
+		studentfile << stud.getlastname() << endl;
+		studentfile << stud.getfirtname() << endl;
+		studentfile << stud.getmidname() << endl;
+		studentfile << stud.getPhone_num() << endl;
+		studentfile << stud.getGPA() << endl;
+		studentfile << stud.getSpecial() << endl;
+		if (stud.getSocial())
+		{
+			studentfile << "1";
+		}
+		else
+		{
+			studentfile << "0";
+		}
+		if(i != stud_count-1)
+			studentfile << endl;
+	}
+	studentfile.close();
+}
+
+System::Void Kursovik::AddData::PrintStudents(int index_fac, int index_dir, int index_you, 
+	int index_groups, DataGridView^ dataGridView1, Inq^ inq)
 {
+	if (inq == nullptr)
+	{
+		Inq^ inq1 = gcnew Inq();
+		inq = inq1;
+	}
 	Students stud = class Students();
 	Groups gr = class Groups();
 	gr = fac[index_fac].getGroupF(index_dir, index_you, index_groups);
-	int count_stud = gr.getCountStudG();
 	int count_stud_before = dataGridView1->RowCount;
-	dataGridView1->RowCount += count_stud;
-	GridSize = count_stud;
-	for (int i = count_stud_before; i < count_stud; i++)
+	int count_stud = gr.getCountStudG();
+	int rows_added = count_stud_before;
+	for (int i = count_stud_before; i < count_stud_before+count_stud; i++)
 	{
-		stud = fac[index_fac].getStudF(index_dir, index_you, index_groups, i);
-		dataGridView1->Rows[i]->Cells[0]->Value = ConvertToString(stud.getlastname() + " " +
-			stud.getfirtname() + " " + stud.getmidname());
-		dataGridView1->Rows[i]->Cells[1]->Value = ConvertToString(stud.getPhone_num());
-		dataGridView1->Rows[i]->Cells[2]->Value = Convert::ToString(stud.getGPA());
+		if (inq->CheckTextBoxes(index_fac, index_dir, index_you, index_groups, i - count_stud_before))
+		{
+			dataGridView1->RowCount += 1;
+			stud = fac[index_fac].getStudF(index_dir, index_you, index_groups, i - count_stud_before);
+			dataGridView1->Rows[rows_added]->Cells[0]->Value = ConvertToString(stud.getlastname() + " " +
+				stud.getfirtname() + " " + stud.getmidname());
+			dataGridView1->Rows[rows_added]->Cells[1]->Value = ConvertToString(stud.getPhone_num());
+			dataGridView1->Rows[rows_added]->Cells[2]->Value = Convert::ToString(stud.getGPA());
+			if (dataGridView1->ColumnCount == 5)
+			{
+				dataGridView1->Rows[rows_added]->Cells[3]->Value = Convert::ToString(stud.getSpecial());
+				dataGridView1->Rows[rows_added]->Cells[4]->Value = Convert::ToString(stud.getSocial());
+			}
+			else
+			{
+				dataGridView1->Rows[rows_added]->Cells[3]->Value = 
+					Scholarship_Calculation(index_fac, index_dir, index_you, index_groups, i - count_stud_before);
+			}
+			rows_added++;
+		}
 	}
 }
 
@@ -577,7 +887,6 @@ System::Void Kursovik::AddData::OpenFileGroups(int index_fac, int index_dir, int
 		int count_groups = fac[index_fac].getCountInGroupsF(index_dir, index_you);
 		if (gr.getNameG() == "0" || gr.getNameG() == "")
 		{
-			//MessageBox::Show("Информация о группах для данного курса отсутствует!");
 			if(dataGridView1->Rows->Count > 1)
 				if (dataGridView1->Rows[0]->Cells[0]->Value->ToString() != "")
 				{
@@ -617,9 +926,16 @@ System::Void Kursovik::AddData::OpenFileStudents(int index_fac, int index_dir, i
 			count_info++;
 			if (count_info == data_volume) 
 			{
+				for (int i = 0; i < count_info; i++)
+				{
+					if (studs[i][studs[i].length() - 1] == ' ')
+						studs[i].erase(studs[i].size() - 1);
+				}
 				student.setFIO(studs[0], studs[1], studs[2]);
 				student.setPhone_num(studs[3]);
 				student.setGPA(stoi(studs[4]));
+				student.setSpecial(stoi(studs[5]));
+				student.setSocial(stoi(studs[6]));
 				Groups gr = class Groups();
 				gr = fac[index_fac].getGroupF(index_dir, index_you, index_groups);
 				gr.setCountStudG(count_st+1);
@@ -634,19 +950,6 @@ System::Void Kursovik::AddData::OpenFileStudents(int index_fac, int index_dir, i
 		gr = fac[index_fac].getGroupF(index_dir, index_you, index_groups);
 		gr.setCountStudG(count_st);
 		fac[index_fac].setGroupsF(gr, index_dir, index_you, index_groups);
-
-		if (studs[0] != "0")
-		{
-			
-		}
-		else
-		{
-			//MessageBox::Show("Информация о студентах отсутсвует!");
-			/*if (dataGridView1->Rows[0]->Cells[0]->Value->ToString() != "")
-			{
-				ClearGrid(GridSize);
-			}*/
-		}
 	}
 	else
 	{
@@ -657,23 +960,28 @@ System::Void Kursovik::AddData::OpenFileStudents(int index_fac, int index_dir, i
 
 System::Void Kursovik::AddData::comboBox1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e)
 {
+	label8->Text = comboBox1->Text;
 	AddComboBoxDirect(comboBox1, comboBox2, comboBox3, comboBox4);
 }
 
 System::Void Kursovik::AddData::comboBox2_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e)
 {
+	label9->Text = comboBox2->Text;
 	AddComboBoxYears(comboBox1, comboBox2, comboBox3, comboBox4);
 }
 
 System::Void Kursovik::AddData::comboBox3_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e)
 {
+	label10->Text = comboBox3->Text;
 	AddComboBoxGroups(comboBox1, comboBox2, comboBox3, comboBox4);
 }
 
 System::Void Kursovik::AddData::comboBox4_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e)
 {
+	label11->Text = comboBox4->Text;
 	dataGridView1->RowCount = 0;
-	PrintStudents(comboBox1->SelectedIndex, comboBox2->SelectedIndex, comboBox3->SelectedIndex, comboBox4->SelectedIndex, dataGridView1);
+	PrintStudents(comboBox1->SelectedIndex, comboBox2->SelectedIndex, 
+		comboBox3->SelectedIndex, comboBox4->SelectedIndex, dataGridView1, nullptr);
 	set_header_num(dataGridView1);
 }
 
@@ -733,17 +1041,30 @@ System::Void Kursovik::AddData::add_groups_Click(System::Object^ sender, System:
 	{
 		return;
 	}
-	string str = ConvertTostring(comboBox2->Text);
 	string str2 = "";
-	str2 += str[0];
-	for (int i = 1; i < str.length(); i++)
+	if (checkBox2->Checked == true && textBox2->Text != "")
 	{
-		if (str[i] == ' ' || str[i] == '-' && (str[i + 1] != ' ' && str[i + 1] != '-'))
-		{
-			str2 += toupper(str[i + 1]);
-		}
+		str2 = ConvertTostring(textBox2->Text) + "-";
 	}
-	str2 += "-";
+	else
+	{
+		if (checkBox2->Checked == true)
+		{
+			MessageBox::Show("Название не было введено!");
+			checkBox2->Checked = false;
+		}
+		string str = ConvertTostring(comboBox2->Text);
+		str2 += str[0];
+		for (int i = 1; i < str.length(); i++)
+		{
+			if (str[i] == ' ' || str[i] == '-' && (str[i + 1] != ' ' && str[i + 1] != '-'))
+			{
+				if (str[i + 1] != ' ' && str[i + 1] != '-' && str[i + 2] != ' ' && str[i + 2])
+					str2 += toupper(str[i + 1]);
+			}
+		}
+		str2 += "-";
+	}
 	int flag = 1;
 	int groups_count_class = fac[comboBox1->SelectedIndex].getYearsF(comboBox2->SelectedIndex, comboBox3->SelectedIndex).getCountGroupsY();
 	int start_ed = fac[comboBox1->SelectedIndex].getYearsF(comboBox2->SelectedIndex, comboBox3->SelectedIndex).
@@ -758,20 +1079,9 @@ System::Void Kursovik::AddData::add_groups_Click(System::Object^ sender, System:
 		flag = 1;
 		int num_gr = i + groups_count_class;
 		group_tmp = str2 + ConvertTostring((start_ed * 10 + num_gr).ToString());
-		ifstream group(path + repos + gtxt);
-		if (group)
-		{
-			group.close();
-			fstream groupsfile(path + repos + gtxt, ios_base::app);
-			groupsfile << endl << group_tmp;
-			groupsfile.close();
-		}
-		else
-		{
-			ofstream groupfile(path + repos + gtxt);
-			groupfile << group_tmp;
-			groupfile.close();
-		}
+		fstream groupsfile(path + repos + gtxt, ios_base::app);
+		groupsfile << group_tmp << endl;
+		groupsfile.close();
 		_mkdir((path + repos + group_tmp).c_str());
 		ofstream studentsfile(path + repos + group_tmp + "\\" + "Students.txt");
 		studentsfile.close();
@@ -833,6 +1143,7 @@ System::Void Kursovik::AddData::checkBox1_Click(System::Object^ sender, System::
 
 		add_groups->Enabled = false;
 		add_stud->Enabled = false;
+		save_data_bttn->Enabled = false;
 	}
 	else
 	{
@@ -846,6 +1157,7 @@ System::Void Kursovik::AddData::checkBox1_Click(System::Object^ sender, System::
 		dataGridView1->ReadOnly = true;
 		Flag_for_checkbox = false;
 		checkBox1->Text = "Выключен";
+		save_data_bttn->Enabled = true;
 		add_groups->Enabled = true;
 		add_stud->Enabled = true;
 	}
@@ -853,7 +1165,7 @@ System::Void Kursovik::AddData::checkBox1_Click(System::Object^ sender, System::
 
 System::Void Kursovik::AddData::save_data_bttn_Click(System::Object^ sender, System::EventArgs^ e)
 {
-	
+	SaveStudFile(comboBox1->SelectedIndex, comboBox2->SelectedIndex, comboBox3->SelectedIndex, comboBox4->SelectedIndex);
 }
 
 System::Void Kursovik::AddData::textBox1_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
@@ -1144,14 +1456,9 @@ System::Void Kursovik::AddData::del_rows(int count_of_nums, int RowCount_dg)
 				DeletedRows[count_of_del_rows] = Row_del_index[i];
 				count_of_del_rows++;
 			}
-			else
-			{
-				//MessageBox::Show("Такая строка уже была удалена!");
-			}
 		}
 	}
 	textBox1->Text = "";
 	clear_variables_for_del(RowCount_dg);
-	//set_header_num(dataGridView1);
 }
 

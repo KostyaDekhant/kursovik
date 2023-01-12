@@ -16,6 +16,20 @@ Assembly System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=
 	hash=None, flags=None
 Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
+Class Kursovik.Inq: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.Windows.Forms.TextBox textBox_F : Public
+    System.Windows.Forms.TextBox textBox_I : Public
+    System.Windows.Forms.TextBox textBox_O : Public
+    System.Windows.Forms.CheckBox checkBox_F : Public
+    System.Windows.Forms.CheckBox checkBox_I : Public
+    System.Windows.Forms.CheckBox checkBox_O : Public
+    System.Windows.Forms.CheckBox checkBox_rpa : Public
+    System.Windows.Forms.CheckBox checkBox_social : Public
+  Methods:
+    CheckTextBoxes(Int32, Int32, Int32, Int32, Int32): PrivateScope, Public, HideBySig
 Class Kursovik.AddData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -29,12 +43,13 @@ Class Kursovik.AddData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     System.Windows.Forms.ComboBox comboBox4 : Public
     Int32 data_volume : Public
   Methods:
+    OpenSholarFile(): PrivateScope, Public, HideBySig
     ShiftData(Int32): PrivateScope, Public, HideBySig
     AddComboBoxFaculty(ComboBox, ComboBox, ComboBox, ComboBox): PrivateScope, Public, HideBySig
     AddComboBoxDirect(ComboBox, ComboBox, ComboBox, ComboBox): PrivateScope, Public, HideBySig
     AddComboBoxYears(ComboBox, ComboBox, ComboBox, ComboBox): PrivateScope, Public, HideBySig
     AddComboBoxGroups(ComboBox, ComboBox, ComboBox, ComboBox): PrivateScope, Public, HideBySig
-    PrintStudents(Int32, Int32, Int32, Int32, DataGridView): PrivateScope, Public, HideBySig
+    PrintStudents(Int32, Int32, Int32, Int32, DataGridView, Inq): PrivateScope, Public, HideBySig
     OpenFileFacult(): PrivateScope, Public, HideBySig
     rowcountchanged(): PrivateScope, Public, HideBySig
     set_header_num(DataGridView): PrivateScope, Public, HideBySig
@@ -45,6 +60,3 @@ Class Kursovik.StartForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     Int32 first_start : Public, Static
-Class Kursovik.Inq: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-  :System.Windows.Forms.Form
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName

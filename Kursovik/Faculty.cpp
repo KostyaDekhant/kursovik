@@ -81,21 +81,6 @@ int Faculty::getCountInYearsF(int index_dir)
 	return this->dir[index_dir].getYearsOfEdD();
 }
 
-
-//int Faculty::getVectorSizeF()
-//{
-//	return this->dir.size();
-//}
-//
-//
-//Directions Faculty::getVectorObjectF(int index_dir)
-//{
-//	return this->dir[index_dir];
-//}
-
-
-
-
 void Faculty::setDirF(class Directions& direct, int index_dir)
 {
 	this->dir[index_dir] = direct;

@@ -5,7 +5,7 @@ class YearsOfUni
 {
 private:
 	std::string year;
-	Groups* group = new class Groups[10];
+	Groups* group = new class Groups[20];
 	int year_of_start;
 	int count_groups;
 public:
