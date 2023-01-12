@@ -37,7 +37,7 @@ namespace Kursovik {
 	private: System::Windows::Forms::MenuStrip^ menuStrip1;
 	protected:
 	private: System::Windows::Forms::ToolStripMenuItem^ Ù‡ÈÎToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^ Ô‡‚Í‡ToolStripMenuItem;
+
 	private: System::Windows::Forms::ToolStripMenuItem^ ‚˚ıÓ‰ToolStripMenuItem;
 	private: System::Windows::Forms::Button^ add_data;
 
@@ -52,7 +52,7 @@ namespace Kursovik {
 	private: System::Windows::Forms::Panel^ panel1;
 	private: System::Windows::Forms::Panel^ panel2;
 	private: System::Windows::Forms::Button^ make_inq;
-	private: System::Windows::Forms::Button^ report;
+
 
 
 	private: System::ComponentModel::IContainer^ components;
@@ -74,7 +74,6 @@ namespace Kursovik {
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(StartForm::typeid));
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->Ù‡ÈÎToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->Ô‡‚Í‡ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->‚˚ıÓ‰ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->add_data = (gcnew System::Windows::Forms::Button());
 			this->imageList1 = (gcnew System::Windows::Forms::ImageList(this->components));
@@ -84,7 +83,6 @@ namespace Kursovik {
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->make_inq = (gcnew System::Windows::Forms::Button());
-			this->report = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1->SuspendLayout();
 			this->panel2->SuspendLayout();
 			this->SuspendLayout();
@@ -94,15 +92,15 @@ namespace Kursovik {
 			this->menuStrip1->AutoSize = false;
 			this->menuStrip1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(28)), static_cast<System::Int32>(static_cast<System::Byte>(28)),
 				static_cast<System::Int32>(static_cast<System::Byte>(28)));
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
 				this->Ù‡ÈÎToolStripMenuItem,
-					this->Ô‡‚Í‡ToolStripMenuItem, this->‚˚ıÓ‰ToolStripMenuItem
+					this->‚˚ıÓ‰ToolStripMenuItem
 			});
 			this->menuStrip1->LayoutStyle = System::Windows::Forms::ToolStripLayoutStyle::HorizontalStackWithOverflow;
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->MaximumSize = System::Drawing::Size(300, 24);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(300, 24);
+			this->menuStrip1->Size = System::Drawing::Size(204, 24);
 			this->menuStrip1->TabIndex = 0;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
@@ -112,13 +110,7 @@ namespace Kursovik {
 			this->Ù‡ÈÎToolStripMenuItem->Name = L"Ù‡ÈÎToolStripMenuItem";
 			this->Ù‡ÈÎToolStripMenuItem->Size = System::Drawing::Size(48, 20);
 			this->Ù‡ÈÎToolStripMenuItem->Text = L"‘‡ÈÎ";
-			// 
-			// Ô‡‚Í‡ToolStripMenuItem
-			// 
-			this->Ô‡‚Í‡ToolStripMenuItem->ForeColor = System::Drawing::SystemColors::Control;
-			this->Ô‡‚Í‡ToolStripMenuItem->Name = L"Ô‡‚Í‡ToolStripMenuItem";
-			this->Ô‡‚Í‡ToolStripMenuItem->Size = System::Drawing::Size(59, 20);
-			this->Ô‡‚Í‡ToolStripMenuItem->Text = L"œ‡‚Í‡";
+			this->Ù‡ÈÎToolStripMenuItem->Click += gcnew System::EventHandler(this, &StartForm::Ù‡ÈÎToolStripMenuItem_Click);
 			// 
 			// ‚˚ıÓ‰ToolStripMenuItem
 			// 
@@ -237,34 +229,22 @@ namespace Kursovik {
 			this->make_inq->UseVisualStyleBackColor = false;
 			this->make_inq->Click += gcnew System::EventHandler(this, &StartForm::make_inq_Click);
 			// 
-			// report
-			// 
-			this->report->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(20)), static_cast<System::Int32>(static_cast<System::Byte>(20)),
-				static_cast<System::Int32>(static_cast<System::Byte>(20)));
-			this->report->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
-			this->report->ForeColor = System::Drawing::Color::White;
-			this->report->Location = System::Drawing::Point(29, 189);
-			this->report->Name = L"report";
-			this->report->Size = System::Drawing::Size(142, 63);
-			this->report->TabIndex = 1;
-			this->report->Text = L"ŒÚ˜∏Ú";
-			this->report->UseVisualStyleBackColor = false;
-			// 
 			// StartForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->ClientSize = System::Drawing::Size(854, 481);
+			this->ClientSize = System::Drawing::Size(204, 228);
 			this->Controls->Add(this->panel2);
 			this->Controls->Add(this->panel1);
-			this->Controls->Add(this->report);
 			this->Controls->Add(this->make_inq);
 			this->Controls->Add(this->add_data);
 			this->Controls->Add(this->menuStrip1);
 			this->MainMenuStrip = this->menuStrip1;
-			this->MaximumSize = System::Drawing::Size(1920, 1050);
+			this->MaximizeBox = false;
+			this->MaximumSize = System::Drawing::Size(220, 267);
+			this->MinimumSize = System::Drawing::Size(220, 267);
 			this->Name = L"StartForm";
 			this->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->ShowIcon = false;
@@ -297,5 +277,6 @@ private: System::Void add_data_Click(System::Object^ sender, System::EventArgs^ 
 private: System::Void ‚˚ıÓ‰ToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void StartForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e);
 private: System::Void make_inq_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void Ù‡ÈÎToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 };
 }

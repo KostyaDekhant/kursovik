@@ -1,5 +1,5 @@
 #pragma once
-
+#include <string>
 #include "Inq.h"
 #include "Faculty.h"
 namespace Kursovik {
@@ -50,7 +50,7 @@ namespace Kursovik {
 	public: System::Windows::Forms::ComboBox^ comboBox4;
 	private: System::Windows::Forms::Button^ add_groups;
 	public: int data_volume = 7;
-
+	public: String^ Path = "C:\\Users\\Podor\\Documents\\GitHub\\kursovik\\Kursovik\\Data\\";
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Button^ add_stud;
 
@@ -95,6 +95,8 @@ namespace Kursovik {
 	private: System::Windows::Forms::Label^ label10;
 	private: System::Windows::Forms::Label^ label9;
 	private: System::Windows::Forms::Label^ label8;
+	private: System::Windows::Forms::OpenFileDialog^ openFileDialog1;
+	private: System::Windows::Forms::FolderBrowserDialog^ folderBrowserDialog1;
 
 
 
@@ -165,6 +167,8 @@ namespace Kursovik {
 			this->del_year_bttn = (gcnew System::Windows::Forms::Button());
 			this->del_dir_bttn = (gcnew System::Windows::Forms::Button());
 			this->del_fac_bttn = (gcnew System::Windows::Forms::Button());
+			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->folderBrowserDialog1 = (gcnew System::Windows::Forms::FolderBrowserDialog());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -182,7 +186,7 @@ namespace Kursovik {
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(1194, 24);
+			this->menuStrip1->Size = System::Drawing::Size(1187, 24);
 			this->menuStrip1->TabIndex = 0;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
@@ -192,6 +196,7 @@ namespace Kursovik {
 			this->Ù‡ÈÎToolStripMenuItem->Name = L"Ù‡ÈÎToolStripMenuItem";
 			this->Ù‡ÈÎToolStripMenuItem->Size = System::Drawing::Size(48, 20);
 			this->Ù‡ÈÎToolStripMenuItem->Text = L"‘‡ÈÎ";
+			this->Ù‡ÈÎToolStripMenuItem->Click += gcnew System::EventHandler(this, &AddData::Ù‡ÈÎToolStripMenuItem_Click);
 			// 
 			// ‚ÂÌÛÚ¸ÒˇToolStripMenuItem
 			// 
@@ -209,7 +214,7 @@ namespace Kursovik {
 			this->dataGridView1->BackgroundColor = System::Drawing::SystemColors::ControlLightLight;
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->dataGridView1->GridColor = System::Drawing::SystemColors::AppWorkspace;
-			this->dataGridView1->Location = System::Drawing::Point(25, 101);
+			this->dataGridView1->Location = System::Drawing::Point(25, 75);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->Size = System::Drawing::Size(598, 314);
 			this->dataGridView1->TabIndex = 1;
@@ -218,7 +223,7 @@ namespace Kursovik {
 			// 
 			this->comboBox1->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 			this->comboBox1->FormattingEnabled = true;
-			this->comboBox1->Location = System::Drawing::Point(25, 65);
+			this->comboBox1->Location = System::Drawing::Point(25, 39);
 			this->comboBox1->Name = L"comboBox1";
 			this->comboBox1->Size = System::Drawing::Size(121, 21);
 			this->comboBox1->TabIndex = 2;
@@ -228,7 +233,7 @@ namespace Kursovik {
 			// 
 			this->comboBox2->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 			this->comboBox2->FormattingEnabled = true;
-			this->comboBox2->Location = System::Drawing::Point(152, 65);
+			this->comboBox2->Location = System::Drawing::Point(152, 39);
 			this->comboBox2->Name = L"comboBox2";
 			this->comboBox2->Size = System::Drawing::Size(121, 21);
 			this->comboBox2->TabIndex = 3;
@@ -238,7 +243,7 @@ namespace Kursovik {
 			// 
 			this->comboBox3->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 			this->comboBox3->FormattingEnabled = true;
-			this->comboBox3->Location = System::Drawing::Point(279, 65);
+			this->comboBox3->Location = System::Drawing::Point(279, 39);
 			this->comboBox3->Name = L"comboBox3";
 			this->comboBox3->Size = System::Drawing::Size(121, 21);
 			this->comboBox3->TabIndex = 3;
@@ -248,7 +253,7 @@ namespace Kursovik {
 			// 
 			this->comboBox4->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 			this->comboBox4->FormattingEnabled = true;
-			this->comboBox4->Location = System::Drawing::Point(406, 65);
+			this->comboBox4->Location = System::Drawing::Point(406, 39);
 			this->comboBox4->Name = L"comboBox4";
 			this->comboBox4->Size = System::Drawing::Size(121, 21);
 			this->comboBox4->TabIndex = 3;
@@ -305,7 +310,7 @@ namespace Kursovik {
 			this->groupBox1->Controls->Add(this->label2);
 			this->groupBox1->Controls->Add(this->add_groups);
 			this->groupBox1->ForeColor = System::Drawing::SystemColors::Control;
-			this->groupBox1->Location = System::Drawing::Point(629, 101);
+			this->groupBox1->Location = System::Drawing::Point(629, 75);
 			this->groupBox1->Name = L"groupBox1";
 			this->groupBox1->Size = System::Drawing::Size(534, 157);
 			this->groupBox1->TabIndex = 9;
@@ -475,7 +480,7 @@ namespace Kursovik {
 			this->groupBox3->Controls->Add(this->checkBox1);
 			this->groupBox3->Controls->Add(this->label3);
 			this->groupBox3->ForeColor = System::Drawing::SystemColors::Control;
-			this->groupBox3->Location = System::Drawing::Point(914, 264);
+			this->groupBox3->Location = System::Drawing::Point(914, 238);
 			this->groupBox3->Name = L"groupBox3";
 			this->groupBox3->Size = System::Drawing::Size(249, 151);
 			this->groupBox3->TabIndex = 11;
@@ -563,7 +568,7 @@ namespace Kursovik {
 			this->groupBox2->Controls->Add(this->del_dir_bttn);
 			this->groupBox2->Controls->Add(this->del_fac_bttn);
 			this->groupBox2->ForeColor = System::Drawing::SystemColors::Control;
-			this->groupBox2->Location = System::Drawing::Point(629, 264);
+			this->groupBox2->Location = System::Drawing::Point(629, 238);
 			this->groupBox2->Name = L"groupBox2";
 			this->groupBox2->Size = System::Drawing::Size(279, 151);
 			this->groupBox2->TabIndex = 12;
@@ -650,13 +655,17 @@ namespace Kursovik {
 			this->del_fac_bttn->UseVisualStyleBackColor = true;
 			this->del_fac_bttn->Click += gcnew System::EventHandler(this, &AddData::del_fac_bttn_Click);
 			// 
+			// openFileDialog1
+			// 
+			this->openFileDialog1->FileName = L"openFileDialog1";
+			// 
 			// AddData
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(35)), static_cast<System::Int32>(static_cast<System::Byte>(35)),
 				static_cast<System::Int32>(static_cast<System::Byte>(35)));
-			this->ClientSize = System::Drawing::Size(1194, 605);
+			this->ClientSize = System::Drawing::Size(1187, 416);
 			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->groupBox3);
 			this->Controls->Add(this->groupBox1);
@@ -668,6 +677,9 @@ namespace Kursovik {
 			this->Controls->Add(this->menuStrip1);
 			this->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->MainMenuStrip = this->menuStrip1;
+			this->MaximizeBox = false;
+			this->MaximumSize = System::Drawing::Size(1203, 455);
+			this->MinimumSize = System::Drawing::Size(1203, 455);
 			this->Name = L"AddData";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"AddData";
@@ -720,7 +732,7 @@ namespace Kursovik {
 	private: System::Void SaveStudFile(int index_fac, int index_dir, int index_you, int index_groups);
 	private: System::Void PrintClasses();
 	public: System::Void rowcountchanged();
-	private: System::Void ClearGrid(int size);
+	public: System::Void ClearGrid(int size);
 	private: System::Void add_groups_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void add_stud_Click(System::Object^ sender, System::EventArgs^ e);
 	public: System::Void set_header_num(DataGridView^ dataGridView1);
@@ -748,5 +760,6 @@ namespace Kursovik {
 	private: System::Void del_dir_bttn_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void del_year_bttn_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void del_gr_bttn_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Ù‡ÈÎToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 };
 }

@@ -42,6 +42,7 @@ Class Kursovik.AddData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     System.Windows.Forms.ComboBox comboBox3 : Public
     System.Windows.Forms.ComboBox comboBox4 : Public
     Int32 data_volume : Public
+    System.String Path : Public
   Methods:
     OpenSholarFile(): PrivateScope, Public, HideBySig
     ShiftData(Int32): PrivateScope, Public, HideBySig
@@ -52,6 +53,7 @@ Class Kursovik.AddData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     PrintStudents(Int32, Int32, Int32, Int32, DataGridView, Inq): PrivateScope, Public, HideBySig
     OpenFileFacult(): PrivateScope, Public, HideBySig
     rowcountchanged(): PrivateScope, Public, HideBySig
+    ClearGrid(Int32): PrivateScope, Public, HideBySig
     set_header_num(DataGridView): PrivateScope, Public, HideBySig
     del_rows(Int32, Int32): PrivateScope, Public, HideBySig
     getFac(Faculty*): PrivateScope, Public, HideBySig

@@ -1,1 +1,4 @@
-﻿  Kursovik.vcxproj -> C:\Users\Podor\Documents\GitHub\kursovik\x64\Debug\Kursovik.exe
+﻿  Inq.cpp
+C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\Inq.cpp(369,17): warning C4244: инициализация: преобразование "wchar_t" в "char", возможна потеря данных
+  AddData.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
+  Kursovik.vcxproj -> C:\Users\Podor\Documents\GitHub\kursovik\x64\Debug\Kursovik.exe

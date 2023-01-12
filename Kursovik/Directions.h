@@ -5,7 +5,7 @@ class Directions
 {
 private:
 	std::string name_dir;
-	YearsOfUni* you = new class YearsOfUni[15];
+	YearsOfUni* you = new class YearsOfUni[6];
 	int year_of_ed = 0;
 	//int count_you;
 public:

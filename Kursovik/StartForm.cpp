@@ -15,19 +15,15 @@ void main(array<String^>^ args) {
 	Application::Run(% form);
 }
 
-
-
 //struct Point {
 //	int X;
 //	int Y;
 //}lastPoint;
 
-
 System::Void Kursovik::StartForm::exit_bttn_Click(System::Object^ sender, System::EventArgs^ e)
 {
 	//Application::Exit();
 }
-
 
 System::Void Kursovik::StartForm::minimize_bttn_Click(System::Object^ sender, System::EventArgs^ e)
 {
@@ -135,6 +131,11 @@ System::Void Kursovik::StartForm::make_inq_Click(System::Object^ sender, System:
 	Inq^ inq = gcnew Inq();
 	this->Hide();
 	inq->Show();
+}
+
+System::Void Kursovik::StartForm::Ù‡ÈÎToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	return System::Void();
 }
 
 System::Void Kursovik::StartForm::panel1_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)

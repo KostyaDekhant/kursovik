@@ -5,7 +5,7 @@ class Groups
 {
 private:
 	std::string name_group;
-	Students* stud = new class Students[50];
+	Students* stud = new class Students[30];
 	int year_of_admission;
 	//int count_group;
 	int count_students;

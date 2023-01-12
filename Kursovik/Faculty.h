@@ -5,7 +5,7 @@ class Faculty
 {
 private:
 	std::string name_facult;
-	Directions* dir = new class Directions[20];
+	Directions* dir = new class Directions[6];
 	static int count_facult;
 	int count_dir;
 public:

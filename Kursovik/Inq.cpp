@@ -4,7 +4,7 @@
 #include "Function.h"
 #include <string>
 
-Faculty* facult = new class Faculty[15];
+Faculty* facult = new class Faculty[10];
 
 System::Void Kursovik::Inq::radioButton1_CheckedChanged(System::Object^ sender, System::EventArgs^ e)
 {
@@ -406,5 +406,24 @@ System::Void Kursovik::Inq::textBox1_TextChanged(System::Object^ sender, System:
             textBox1->Text = "";
             return;
         }
+    }
+}
+
+System::Void Kursovik::Inq::файлToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+{
+    String^ pname;
+    if (folderBrowserDialog1->ShowDialog() == Windows::Forms::DialogResult::OK)
+    {
+        AddData^ ad = gcnew AddData();
+        pname = folderBrowserDialog1->SelectedPath;
+        ad->Path = pname + "\\";
+        comboBox1->Items->Clear();
+        comboBox2->Items->Clear();
+        comboBox3->Items->Clear();
+        comboBox4->Items->Clear();
+        ad->ClearGrid(dataGridView1->RowCount);
+        ad->OpenFileFacult();
+        ad->AddComboBoxFaculty(comboBox1, comboBox2, comboBox3, comboBox4);
+        MessageBox::Show("Данные обновлены!");
     }
 }

@@ -96,6 +96,7 @@ namespace Kursovik {
 	private: System::Windows::Forms::ComboBox^ comboBox5;
 	private: System::Windows::Forms::TextBox^ textBox1;
 	private: System::Windows::Forms::GroupBox^ groupBox1;
+	private: System::Windows::Forms::FolderBrowserDialog^ folderBrowserDialog1;
 
 
 
@@ -142,6 +143,7 @@ namespace Kursovik {
 			this->comboBox5 = (gcnew System::Windows::Forms::ComboBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->folderBrowserDialog1 = (gcnew System::Windows::Forms::FolderBrowserDialog());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -157,7 +159,7 @@ namespace Kursovik {
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(1061, 24);
+			this->menuStrip1->Size = System::Drawing::Size(891, 24);
 			this->menuStrip1->TabIndex = 0;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
@@ -167,6 +169,7 @@ namespace Kursovik {
 			this->Ù‡ÈÎToolStripMenuItem->Name = L"Ù‡ÈÎToolStripMenuItem";
 			this->Ù‡ÈÎToolStripMenuItem->Size = System::Drawing::Size(48, 20);
 			this->Ù‡ÈÎToolStripMenuItem->Text = L"‘‡ÈÎ";
+			this->Ù‡ÈÎToolStripMenuItem->Click += gcnew System::EventHandler(this, &Inq::Ù‡ÈÎToolStripMenuItem_Click);
 			// 
 			// ‚ÂÌÛÚ¸ÒˇToolStripMenuItem
 			// 
@@ -450,7 +453,7 @@ namespace Kursovik {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(32)), static_cast<System::Int32>(static_cast<System::Byte>(32)),
 				static_cast<System::Int32>(static_cast<System::Byte>(32)));
-			this->ClientSize = System::Drawing::Size(1061, 622);
+			this->ClientSize = System::Drawing::Size(891, 476);
 			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->checkBox_gr);
 			this->Controls->Add(this->checkBox_years);
@@ -465,6 +468,9 @@ namespace Kursovik {
 			this->Controls->Add(this->menuStrip1);
 			this->ForeColor = System::Drawing::SystemColors::Control;
 			this->MainMenuStrip = this->menuStrip1;
+			this->MaximizeBox = false;
+			this->MaximumSize = System::Drawing::Size(907, 515);
+			this->MinimumSize = System::Drawing::Size(907, 515);
 			this->Name = L"Inq";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Inq";
@@ -498,5 +504,6 @@ namespace Kursovik {
 	private: System::Void PrintComboBoxSign();
 	private: System::Void textBox1_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e);
 	private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Ù‡ÈÎToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 };
 }

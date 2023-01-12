@@ -8,12 +8,12 @@
 
 using namespace std;
 
-extern string path = "C:\\Users\\Podor\\Documents\\GitHub\\kursovik\\Kursovik\\Data\\";
+extern string path = "";
 int GridSize = 0;
 bool Flag_for_checkbox = false;
 YearsOfUni you_temp = class YearsOfUni();
 int last_year_int;
-Faculty* fac = new class Faculty[15];
+Faculty* fac = new class Faculty[10];
 int sholarship[10];
 
 System::Void Kursovik::AddData::вернутьсяToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
@@ -29,6 +29,7 @@ System::Void Kursovik::AddData::AddData_FormClosing(System::Object^ sender, Syst
 
 System::Void Kursovik::AddData::AddData_Load(System::Object^ sender, System::EventArgs^ e)
 {
+	path = ConvertTostring(Path);
 	last_year_int = fac[0].getYearsF(0, 0).getYearOfStartY();
 	ChangeYear();
 	if(fac->getCountF())
@@ -120,6 +121,7 @@ System::Void Kursovik::AddData::GetFIO(string FIO, string* last, string* first, 
 
 System::Void Kursovik::AddData::OpenSholarFile()
 {
+	path = ConvertTostring(Path);
 	ifstream sholar(path + "Sholarship.txt");
 	string sholars[4];
 	int sholar_count = 0;
@@ -229,6 +231,7 @@ System::Void Kursovik::AddData::del_fac_bttn_Click(System::Object^ sender, Syste
 	if (MessageBox::Show("Вы действительно хотите удалить \"" + ConvertToString(fac_name) + "\"?", "",
 		MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes)
 	{
+		path = ConvertTostring(Path);
 		ofstream facultfile(path + "Faculty.txt");
 		int count_fac = fac->getCountF();
 		for (int i = 0; i < count_fac; i++)
@@ -242,10 +245,6 @@ System::Void Kursovik::AddData::del_fac_bttn_Click(System::Object^ sender, Syste
 				}
 			}
 		}
-		int count_fac_classes = 14;
-		while (fac[count_fac_classes].getNameF() != "")
-			count_fac_classes--;
-		fac[count_fac_classes] = fac[comboBox1->SelectedIndex];
 		for (int i = comboBox1->SelectedIndex; i < count_fac; i++)
 		{
 			fac[i] = fac[i + 1];
@@ -263,6 +262,7 @@ System::Void Kursovik::AddData::del_dir_bttn_Click(System::Object^ sender, Syste
 	if (MessageBox::Show("Вы действительно хотите удалить \"" + ConvertToString(dir_name) + "\"?", "",
 		MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes)
 	{
+		path = ConvertTostring(Path);
 		ofstream dirfile(path + fac_name + "\\" + "Direction.txt");
 		int count_dir = fac[comboBox1->SelectedIndex].getCountInDirF();
 		for (int i = 0; i < count_dir; i++)
@@ -277,12 +277,6 @@ System::Void Kursovik::AddData::del_dir_bttn_Click(System::Object^ sender, Syste
 				}
 			}
 		}
-		int count_dir_classes = 19;
-		while (fac[comboBox1->SelectedIndex].getDirNameF(count_dir_classes) != "")
-		{
-			count_dir_classes--;
-		}
-		fac[comboBox1->SelectedIndex].setDirF(fac[comboBox1->SelectedIndex].getDirF(comboBox2->SelectedIndex),count_dir_classes);
 		for (int i = comboBox2->SelectedIndex; i < count_dir; i++)
 		{
 			fac[comboBox1->SelectedIndex].setDirF(fac[comboBox1->SelectedIndex].getDirF(i+1), i);
@@ -301,6 +295,7 @@ System::Void Kursovik::AddData::del_year_bttn_Click(System::Object^ sender, Syst
 	if (MessageBox::Show("Вы действительно хотите удалить \"" + ConvertToString(year_name) + "\"?", "",
 		MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes)
 	{
+		path = ConvertTostring(Path);
 		ofstream youfile(path + fac_name + "\\" + dir_name + "\\" + "YearsOfUni.txt");
 		int count_years = fac[comboBox1->SelectedIndex].getDirF(comboBox2->SelectedIndex).getYearsOfEdD();
 		for (int i = 0; i < count_years; i++)
@@ -315,12 +310,6 @@ System::Void Kursovik::AddData::del_year_bttn_Click(System::Object^ sender, Syst
 				}
 			}
 		}
-		int count_you_classes = 14;
-		while (fac[comboBox1->SelectedIndex].getYearsF(comboBox2->SelectedIndex, count_you_classes).getNameY() != "")
-		{
-			count_you_classes--;
-		}
-		fac[comboBox1->SelectedIndex].setYearsF(fac[comboBox1->SelectedIndex].getYearsF(comboBox2->SelectedIndex, comboBox3->SelectedIndex), comboBox2->SelectedIndex, count_you_classes);
 		for (int i = comboBox3->SelectedIndex; i < count_years; i++)
 		{
 			fac[comboBox1->SelectedIndex].setYearsF(fac[comboBox1->SelectedIndex].getYearsF(comboBox2->SelectedIndex, i+1), comboBox2->SelectedIndex, i);
@@ -341,6 +330,7 @@ System::Void Kursovik::AddData::del_gr_bttn_Click(System::Object^ sender, System
 		ConvertToString(gr_name) + "\"?", "",
 		MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes)
 	{
+		path = ConvertTostring(Path);
 		ofstream grfile(path + fac_name + "\\" + dir_name + "\\" + year_name + "\\" + "Groups.txt");
 		int count_gr = fac[comboBox1->SelectedIndex].getYearsF(comboBox2->SelectedIndex, comboBox3->SelectedIndex).getCountGroupsY();
 		for (int i = 0; i < count_gr; i++)
@@ -371,9 +361,28 @@ System::Void Kursovik::AddData::del_gr_bttn_Click(System::Object^ sender, System
 	}
 }
 
+System::Void Kursovik::AddData::файлToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	String^ pname;
+	if (folderBrowserDialog1->ShowDialog() == Windows::Forms::DialogResult::OK)
+	{
+		pname = folderBrowserDialog1->SelectedPath;
+		path = ConvertTostring(pname)+"\\";
+		Path = pname + "\\";
+		comboBox1->Items->Clear();
+		comboBox2->Items->Clear();
+		comboBox3->Items->Clear();
+		comboBox4->Items->Clear();
+		ClearGrid(dataGridView1->RowCount);
+		OpenFileFacult();
+		AddComboBoxFaculty(comboBox1, comboBox2, comboBox3, comboBox4);
+		MessageBox::Show("Данные обновлены!");
+	}
+}
 
 System::Void Kursovik::AddData::CreateFaculty() 
 {
+	path = ConvertTostring(Path);
 	int fac_count_before = fac->getCountF();
 	string name = ConvertTostring(textBox_faculty->Text);
 	fac[fac_count_before].setNameF(name);
@@ -386,9 +395,9 @@ System::Void Kursovik::AddData::CreateFaculty()
 	facultfile.close();
 }
 
-
 System::Void Kursovik::AddData::CreateDirections()
 {
+	path = ConvertTostring(Path);
 	int fac_index = comboBox1->SelectedIndex;
 	string name = ConvertTostring(textBox_directions->Text);
 	int years = stoi(ConvertTostring(maskedTextBox_directions->Text));
@@ -434,8 +443,6 @@ System::Void Kursovik::AddData::CreateDirections()
 	yearfile.close();
 }
 
-
-
 System::Void Kursovik::AddData::CreateYear(int index_fac, int index_dir, int index_you)
 {
 	YearsOfUni you = class YearsOfUni();
@@ -460,6 +467,7 @@ System::Void Kursovik::AddData::CreateYearNames(int index_fac, int index_dir)
 
 System::Void Kursovik::AddData::ShiftData(int temp_shift)
 {
+	path = ConvertTostring(Path);
 	int faculty_count = fac->getCountF();
 	for (int i = 0; i < faculty_count; i++)
 	{
@@ -618,6 +626,7 @@ System::Void Kursovik::AddData::CreateGrid()
 System::Void Kursovik::AddData::CreateFiles(int flag, int index_fac, int index_dir, 
 	int index_you, int index_groups)
 {
+	path = ConvertTostring(Path);
 	string filetxt = "";
 	string repos = "";
 	YearsOfUni you = class YearsOfUni();
@@ -661,7 +670,7 @@ System::Void Kursovik::AddData::CreateFiles(int flag, int index_fac, int index_d
 
 System::Void Kursovik::AddData::SaveStudFile(int index_fac, int index_dir, int index_you, int index_groups)
 { 
-	
+	path = ConvertTostring(Path);
 	YearsOfUni you = class YearsOfUni();
 	you = fac[index_fac].getYearsF(index_dir, index_you);
 	Students stud = class Students();
@@ -757,6 +766,7 @@ System::Void Kursovik::AddData::PrintStudents(int index_fac, int index_dir, int 
 
 System::Void Kursovik::AddData::OpenFileFacult()
 {
+	path = ConvertTostring(Path);
 	string ftxt = "Faculty.txt";
 	ifstream faculty(path+ftxt);
 	int count_facult = 0;
@@ -784,6 +794,7 @@ System::Void Kursovik::AddData::OpenFileFacult()
 
 System::Void Kursovik::AddData::OpenFileDirect(int index)
 {
+	path = ConvertTostring(Path);
 	Directions direct = class Directions();
 	string dtxt = "Direction.txt";
 	int count_dir = 0;
@@ -821,6 +832,7 @@ System::Void Kursovik::AddData::OpenFileDirect(int index)
 
 System::Void Kursovik::AddData::OpenFileYears(int index_fac, int index_dir)
 {
+	path = ConvertTostring(Path);
 	string ytxt = "YearsOfUni.txt";
 	YearsOfUni you = class YearsOfUni();
 	Directions direc = class Directions();
@@ -861,6 +873,7 @@ System::Void Kursovik::AddData::OpenFileYears(int index_fac, int index_dir)
 
 System::Void Kursovik::AddData::OpenFileGroups(int index_fac, int index_dir, int index_you)
 {
+	path = ConvertTostring(Path);
 	string gtxt = "Groups.txt";
 	Directions dir = class Directions();
 	Groups gr = class Groups();
@@ -909,6 +922,7 @@ System::Void Kursovik::AddData::OpenFileGroups(int index_fac, int index_dir, int
 
 System::Void Kursovik::AddData::OpenFileStudents(int index_fac, int index_dir, int index_you, int index_groups)
 {
+	path = ConvertTostring(Path);
 	string stxt = "Students.txt";
 	Students student = class Students();
 	YearsOfUni you = class YearsOfUni();
@@ -1030,6 +1044,7 @@ System::Void Kursovik::AddData::ClearGrid(int size)
 
 System::Void Kursovik::AddData::add_groups_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	path = ConvertTostring(Path);
 	setlocale(LC_ALL, "rus");
 	string gtxt = "Groups.txt";
 	string repos = ConvertTostring(comboBox1->Text) + "\\" + ConvertTostring(comboBox2->Text) + "\\"
