@@ -1391,9 +1391,9 @@ System::Void Kursovik::AddData::sort_array(int count_of_nums)
 				MessageBox::Show("5");
 				simple_sort(i, j);
 			}
-				
 		}
-		//std::string str = "";
+	}
+	//std::string str = "";
 		//for (int k = 0; k <= count_of_nums; k++)
 		//{
 		//	if (Row_del_index[k] > 0)
@@ -1406,7 +1406,6 @@ System::Void Kursovik::AddData::sort_array(int count_of_nums)
 		//	str = ConvertTostring(Row_del_index[k].ToString()) + " " + str;
 		//}
 		//MessageBox::Show(ConvertToString(str));
-	}
 }
 
 System::Void Kursovik::AddData::simple_sort(int i, int j)

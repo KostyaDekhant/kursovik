@@ -1,4 +1,14 @@
-﻿  Inq.cpp
+﻿  AddData.cpp
+C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\AddData.cpp(52,44): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\AddData.cpp(190,32): warning C4244: +=: преобразование "double" в "int", возможна потеря данных
+C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\AddData.cpp(1188,14): warning C4244: инициализация: преобразование "wchar_t" в "char", возможна потеря данных
+C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\AddData.cpp(1227,70): warning C4244: +=: преобразование "double" в "int", возможна потеря данных
+C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\AddData.cpp(1272,73): warning C4244: +=: преобразование "double" в "int", возможна потеря данных
+C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\AddData.cpp(1424,14): warning C4244: инициализация: преобразование "wchar_t" в "char", возможна потеря данных
+  Inq.cpp
 C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\Inq.cpp(369,17): warning C4244: инициализация: преобразование "wchar_t" в "char", возможна потеря данных
+  StartForm.cpp
+C:\Users\Podor\Documents\GitHub\kursovik\Kursovik\StartForm.cpp(10,33): warning C4829: Возможно, неправильные параметры функции main. Рекомендуемый вариант - "int main(Platform::Array<Platform::String^>^ argv)"
+  Создание кода...
   AddData.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
   Kursovik.vcxproj -> C:\Users\Podor\Documents\GitHub\kursovik\x64\Debug\Kursovik.exe
