@@ -37,6 +37,7 @@ Class Kursovik.AddData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     System.Windows.Forms.DataGridView dataGridView1 : Public
     Int32* Row_del_index : Public
     Int32* DeletedRows : Public
+    Boolean needsave : Public
     System.Windows.Forms.ComboBox comboBox1 : Public
     System.Windows.Forms.ComboBox comboBox2 : Public
     System.Windows.Forms.ComboBox comboBox3 : Public

@@ -44,6 +44,7 @@ namespace Kursovik {
 	public: int* Row_del_index = new int[1000];
 	public:	int* DeletedRows = new int[1000];
 	private: static bool flag_for_dash = false;
+	public: bool needsave = false;
 	public: System::Windows::Forms::ComboBox^ comboBox1;
 	public: System::Windows::Forms::ComboBox^ comboBox2;
 	public: System::Windows::Forms::ComboBox^ comboBox3;

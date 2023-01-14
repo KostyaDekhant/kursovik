@@ -17,7 +17,7 @@ System::Void Kursovik::Inq::radioButton1_CheckedChanged(System::Object^ sender, 
             comboBox3->Items->Clear();
             comboBox4->Items->Clear();
             comboBox1->Text = "";
-            comboBox2->Text = ""; 
+            comboBox2->Text = "";
             comboBox3->Text = "";
             comboBox4->Text = "";
             comboBox1->Enabled = false;
@@ -425,5 +425,10 @@ System::Void Kursovik::Inq::файлToolStripMenuItem_Click(System::Object^ sender, 
         ad->OpenFileFacult();
         ad->AddComboBoxFaculty(comboBox1, comboBox2, comboBox3, comboBox4);
         MessageBox::Show("Данные обновлены!");
+    }
+    else
+    {
+        MessageBox::Show("Вы не выбрали репозиторий!");
+        return;
     }
 }

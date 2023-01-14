@@ -18,6 +18,12 @@ int sholarship[10];
 
 System::Void Kursovik::AddData::вернутьсяToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	if (needsave)
+	{
+		if (MessageBox::Show("Данные не сохранены! Вы действительно хотите выйти?", "",
+			MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::No)
+			return;
+	}
 	this->Close();
 }
 
@@ -341,12 +347,12 @@ System::Void Kursovik::AddData::del_gr_bttn_Click(System::Object^ sender, System
 				grfile << endl;
 			}
 		}
-		int count_gr_classes = 19;
+		/*int count_gr_classes = 19;
 		while (fac[comboBox1->SelectedIndex].getGroupF(comboBox2->SelectedIndex, comboBox3->SelectedIndex, count_gr_classes).getNameG() != "")
 		{
 			count_gr_classes--;
 		}
-		fac[comboBox1->SelectedIndex].setGroupsF(fac[comboBox1->SelectedIndex].getGroupF(comboBox2->SelectedIndex, comboBox3->SelectedIndex, comboBox4->SelectedIndex), comboBox2->SelectedIndex, comboBox3->SelectedIndex, count_gr_classes);
+		fac[comboBox1->SelectedIndex].setGroupsF(fac[comboBox1->SelectedIndex].getGroupF(comboBox2->SelectedIndex, comboBox3->SelectedIndex, comboBox4->SelectedIndex), comboBox2->SelectedIndex, comboBox3->SelectedIndex, count_gr_classes);*/
 		for (int i = comboBox4->SelectedIndex; i < count_gr; i++)
 		{
 			fac[comboBox1->SelectedIndex].setGroupsF(fac[comboBox1->SelectedIndex].getGroupF(comboBox2->SelectedIndex, comboBox3->SelectedIndex, i+1), comboBox2->SelectedIndex, comboBox3->SelectedIndex, i);
@@ -377,6 +383,11 @@ System::Void Kursovik::AddData::файлToolStripMenuItem_Click(System::Object^ send
 		OpenFileFacult();
 		AddComboBoxFaculty(comboBox1, comboBox2, comboBox3, comboBox4);
 		MessageBox::Show("Данные обновлены!");
+	}
+	else
+	{
+		MessageBox::Show("Вы не выбрали репозиторий!");
+		return;
 	}
 }
 
@@ -722,7 +733,9 @@ System::Void Kursovik::AddData::SaveStudFile(int index_fac, int index_dir, int i
 		if(i != stud_count-1)
 			studentfile << endl;
 	}
+	MessageBox::Show("Данные успешно сохранены!");
 	studentfile.close();
+	needsave = false;
 }
 
 System::Void Kursovik::AddData::PrintStudents(int index_fac, int index_dir, int index_you, 
@@ -1052,6 +1065,11 @@ System::Void Kursovik::AddData::add_groups_Click(System::Object^ sender, System:
 	int groups_count_inp = 0;
 	if(maskedTextBox3->Text != "")
 		groups_count_inp = stoi(ConvertTostring(maskedTextBox3->Text));
+	else
+	{
+		MessageBox::Show("Количество групп не введено!");
+		return;
+	}
 	if (groups_count_inp == 0)
 	{
 		return;
@@ -1118,6 +1136,11 @@ System::Void Kursovik::AddData::add_stud_Click(System::Object^ sender, System::E
 			dataGridView1->Rows->Add();
 		}	
 	}
+	else
+	{
+		MessageBox::Show("Не все данные введены!", "Внимание!");
+		return;
+	}
 	set_header_num(dataGridView1);
 }
 
@@ -1159,6 +1182,7 @@ System::Void Kursovik::AddData::checkBox1_Click(System::Object^ sender, System::
 		add_groups->Enabled = false;
 		add_stud->Enabled = false;
 		save_data_bttn->Enabled = false;
+		needsave = true;
 	}
 	else
 	{
@@ -1256,6 +1280,11 @@ System::Boolean Kursovik::AddData::check_next_symbol(char symbol, int lensym)
 
 System::Void Kursovik::AddData::del_bttn_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	if (textBox1->Text == "")
+	{
+		MessageBox::Show("Введите строки, которые нужно удалить!");
+		return;
+	}
 	if (textBox1->Text[textBox1->Text->Length - 1] == 44 || textBox1->Text[textBox1->Text->Length - 1] == 45)
 	{
 		textBox1->Text = textBox1->Text->Remove(textBox1->Text->Length - 1);

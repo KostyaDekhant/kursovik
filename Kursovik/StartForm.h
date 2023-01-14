@@ -41,7 +41,7 @@ namespace Kursovik {
 	private: System::Windows::Forms::ToolStripMenuItem^ ‚˚ıÓ‰ToolStripMenuItem;
 	private: System::Windows::Forms::Button^ add_data;
 
-	private: System::Windows::Forms::ImageList^ imageList1;
+
 	private: System::Windows::Forms::Button^ maximize_bttn;
 
 	private: System::Windows::Forms::Button^ minimize_bttn;
@@ -52,6 +52,7 @@ namespace Kursovik {
 	private: System::Windows::Forms::Panel^ panel1;
 	private: System::Windows::Forms::Panel^ panel2;
 	private: System::Windows::Forms::Button^ make_inq;
+	private: System::Windows::Forms::FolderBrowserDialog^ folderBrowserDialog1;
 
 
 
@@ -70,19 +71,18 @@ namespace Kursovik {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(StartForm::typeid));
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->Ù‡ÈÎToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->‚˚ıÓ‰ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->add_data = (gcnew System::Windows::Forms::Button());
-			this->imageList1 = (gcnew System::Windows::Forms::ImageList(this->components));
 			this->maximize_bttn = (gcnew System::Windows::Forms::Button());
 			this->minimize_bttn = (gcnew System::Windows::Forms::Button());
 			this->exit_bttn = (gcnew System::Windows::Forms::Button());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->make_inq = (gcnew System::Windows::Forms::Button());
+			this->folderBrowserDialog1 = (gcnew System::Windows::Forms::FolderBrowserDialog());
 			this->menuStrip1->SuspendLayout();
 			this->panel2->SuspendLayout();
 			this->SuspendLayout();
@@ -133,12 +133,6 @@ namespace Kursovik {
 			this->add_data->Text = L"ƒÓ·‡‚ËÚ¸ ‰‡ÌÌ˚Â";
 			this->add_data->UseVisualStyleBackColor = false;
 			this->add_data->Click += gcnew System::EventHandler(this, &StartForm::add_data_Click);
-			// 
-			// imageList1
-			// 
-			this->imageList1->ColorDepth = System::Windows::Forms::ColorDepth::Depth8Bit;
-			this->imageList1->ImageSize = System::Drawing::Size(16, 16);
-			this->imageList1->TransparentColor = System::Drawing::Color::Transparent;
 			// 
 			// maximize_bttn
 			// 

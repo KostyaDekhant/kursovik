@@ -135,7 +135,20 @@ System::Void Kursovik::StartForm::make_inq_Click(System::Object^ sender, System:
 
 System::Void Kursovik::StartForm::файлToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
-	return System::Void();
+	String^ pname;
+	if (folderBrowserDialog1->ShowDialog() == Windows::Forms::DialogResult::OK)
+	{
+		AddData^ adddata = gcnew AddData();
+		pname = folderBrowserDialog1->SelectedPath;
+		adddata->Path = pname + "\\";
+		adddata->OpenFileFacult();
+		MessageBox::Show("Данные обновлены!");
+	}
+	else
+	{
+		MessageBox::Show("Вы не выбрали репозиторий!");
+		return;
+	}
 }
 
 System::Void Kursovik::StartForm::panel1_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
